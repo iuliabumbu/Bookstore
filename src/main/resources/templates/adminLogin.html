@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log in</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form method="post" th:action="@{/adminLogin}" th:object="${administrator}">
+    <div class="login-box">
+        <h1>Administrator Login</h1>
+
+        <div class="textbox">
+            <label>Administrator username</label>
+            <i class='fas fa-user-cog'></i>
+            <input type="text" name = "username" th:value="*{username}">
+        </div>
+
+        <div class="textbox">
+            <label>Password</label>
+            <i class="fas fa-lock"></i>
+            <input type="password" name = "password" th:value="*{password}">
+        </div>
+
+        <button type="submit" class="btn" >Submit</button>
+
+    </div>
+
+</form>
+
+</body>
+</html>
