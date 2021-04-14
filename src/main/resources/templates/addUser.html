@@ -35,7 +35,42 @@
     </h>
 </header>
 
-<h3> Welcome to your Administrator Page!</h3>
+<div class="signup-header">
+    <h2>Add User</h2>
+</div>
+<form method="post" th:action="@{/addUser}" th:object="${user}">
+
+    <div class="signup-group">
+        <label>Name</label>
+        <input type="text" name = "name" th:value="*{name}" placeholder="First name"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Surname</label>
+        <input type="text" name = "surname" th:value="*{surname}" placeholder="Last name"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Email</label>
+        <input type="text" name = "email" th:value="*{email}" placeholder="Email"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Genre type</label>
+        <input type="password" name = "password" th:value="*{password}" placeholder="Password"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Phone Number</label>
+        <input type="text" name = "phoneNumber" th:value="*{phoneNumber}" placeholder="Telephone"  required>
+    </div>
+
+
+    <div class="signup-group">
+        <input type="submit" value="Process">
+    </div>
+
+</form>
 
 <footer>
     <div class="footer"> Bookstore

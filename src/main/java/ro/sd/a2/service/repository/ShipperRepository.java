@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import ro.sd.a2.entity.Book;
 import ro.sd.a2.entity.Shipper;
 
+import java.util.List;
+
 @Repository
 public interface ShipperRepository extends JpaRepository<Shipper, String> {
+
 }

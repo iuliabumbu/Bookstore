@@ -35,7 +35,43 @@
     </h>
 </header>
 
-<h3> Welcome to your Administrator Page!</h3>
+<div class="container">
+    <h2>View Books:</h2>
+    <table style="table-layout: fixed;width: 100%;">
+        <thead>
+        <tr>
+            <th> Id </th>
+            <th> Title </th>
+            <th> Author </th>
+            <th> Description </th>
+            <th> Genre </th>
+            <th> Price </th>
+            <th> Promotion price </th>
+            <th> Image </th>
+            <th> Operation </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${books.empty}">
+            <td colspan="2"> No Books Available </td>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td><span th:text="${book.id}"> Id </span></td>
+            <td><span th:text="${book.title}"> Title </span></td>
+            <td><span th:text="${book.author}"> Author </span></td>
+            <td><span th:text="${book.description}"> Description </span></td>
+            <td><span th:text="${book.genre}"> Genre </span></td>
+            <td><span th:text="${book.price}"> Price </span></td>
+            <td><span th:text="${book.promotionPrice}"> Promotion price </span></td>
+
+            <td><img th:src= "*{book.image}" height="100" width="70" > </td>
+            <td style="width: 100px;"><a href="editVeterinar.jsp?nume=${row.nume }&prenume=${row.prenume}&id=${row.idveterinar}
+					&adresa=${row.adresa}&email=${row.email}&telefon=${row.telefon}" style="color: #6bb1f8;">edit</a> ||
+                <a href="deleteVeterinar.jsp?id=${row.idveterinar}" style="color:#6bb1f8;">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <footer>
     <div class="footer"> Bookstore

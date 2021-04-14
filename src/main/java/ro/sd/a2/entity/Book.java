@@ -29,6 +29,9 @@ public class Book {
     private float price;
 
     @Column
+    private float promotionPrice;
+
+    @Column
     private String image;
 
     @ManyToOne

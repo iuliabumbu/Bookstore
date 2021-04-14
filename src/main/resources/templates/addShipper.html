@@ -35,7 +35,26 @@
     </h>
 </header>
 
-<h3> Welcome to your Administrator Page!</h3>
+<div class="signup-header">
+    <h2>Add Shipper</h2>
+</div>
+<form method="post" th:action="@{/addShipper}" th:object="${shipper}">
+
+    <div class="signup-group">
+        <label>Shipper name</label>
+        <input type="text" name = "name" th:value="*{name}" placeholder="Shipper company"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Cost</label>
+        <input type="text" name = "cost" th:value="*{cost}" placeholder="Cost"  required>
+    </div>
+
+    <div class="signup-group">
+        <input type="submit" value="Process">
+    </div>
+
+</form>
 
 <footer>
     <div class="footer"> Bookstore

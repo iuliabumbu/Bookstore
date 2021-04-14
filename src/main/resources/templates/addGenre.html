@@ -35,7 +35,21 @@
     </h>
 </header>
 
-<h3> Welcome to your Administrator Page!</h3>
+<div class="signup-header">
+    <h2>Add Genre</h2>
+</div>
+<form method="post" th:action="@{/addGenre}" th:object="${genre}">
+
+        <div class="signup-group">
+            <label>Genre type</label>
+            <input type="text" name = "type" th:value="*{type}" placeholder="book category"  required>
+        </div>
+
+        <div class="signup-group">
+            <input type="submit" value="Process">
+        </div>
+
+</form>
 
 <footer>
     <div class="footer"> Bookstore

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.sd.a2.dto.UserDto;
+import ro.sd.a2.entity.Shipper;
 import ro.sd.a2.entity.User;
 import ro.sd.a2.factory.UserFactory;
 import ro.sd.a2.mappers.Mapper;
@@ -37,6 +38,12 @@ public class UserService {
         userRepository.save(user);
 
         log.info("Successfully created user " + user.toString());
+    }
+
+    public List<User> findAllUsers(){
+        List<User> users = userRepository.findAll();
+
+        return users;
     }
 
     public UserDto findByEmailAndPassword(String email, String password){

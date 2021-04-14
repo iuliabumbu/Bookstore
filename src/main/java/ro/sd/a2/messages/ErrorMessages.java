@@ -8,11 +8,12 @@ public class ErrorMessages {
     public static final String INVALID_PASSWORD = "Invalid password, please try again (must have at least 6 characters)";
     public static final String INVALID_NAME = "You must provide your name";
     public static final String INVALID_SURNAME = "You must provide your surname";
-    public static final String INVALID_DOCUMENT = "Your document must have a type";
-    public static final String INVALID_OWNER = "Owner id must be specified";
-    public static final String INVALID_ADDRESS = "All address fields must be specified correctly";
-    public static final String INVALID_REQUEST = "All request fields must be specified correctly";
-    public static final String INVALID_REQUEST_INFO = "You must enter some informations";
+    public static final String INVALID_TYPE = "Your genre must have a type";
+    public static final String INVALID_GENRE = "This genre already exists";
+    public static final String INVALID_SHIPPER_NAME= "Every shipper must have a name";
+    public static final String INVALID_SHIPPER = "This shipper already exists";
+    public static final String INVALID_COST = "Cost can not be negative";
+    public static final String INVALID_BOOK = "All book fields must be completed";
     public static final String INVALID_REQUEST_STATUS = "Status is not one of: Waiting/Accepted/Rejected";
     public static final String INVALID_PHONE_NUMBER = "Your phone number is incorrect (must have 10 digits)";
     public static final String INVALID_LOGIN_ADMIN = "Administrator username or password was incorrect, please try again";

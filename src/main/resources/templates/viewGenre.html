@@ -35,7 +35,30 @@
     </h>
 </header>
 
-<h3> Welcome to your Administrator Page!</h3>
+<div class="container">
+    <h2>View Genres:</h2>
+    <table style="table-layout: fixed;width: 100%;">
+        <thead>
+        <tr>
+            <th> Id </th>
+            <th> Genre </th>
+            <th> Operation </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${genres.empty}">
+            <td colspan="2"> No Genres Available </td>
+        </tr>
+        <tr th:each="genre : ${genres}">
+            <td><span th:text="${genre.id}"> Id </span></td>
+            <td><span th:text="${genre.type}"> Type </span></td>
+            <td style="width: 100px;"><a href="editVeterinar.jsp?nume=${row.nume }&prenume=${row.prenume}&id=${row.idveterinar}
+					&adresa=${row.adresa}&email=${row.email}&telefon=${row.telefon}" style="color: #6bb1f8;">edit</a> ||
+                <a href="deleteVeterinar.jsp?id=${row.idveterinar}" style="color:#6bb1f8;">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <footer>
     <div class="footer"> Bookstore

@@ -35,7 +35,47 @@
     </h>
 </header>
 
-<h3> Welcome to your Administrator Page!</h3>
+<div class="signup-header">
+    <h2>Add Book</h2>
+</div>
+<form method="post" th:action="@{/addBook}" th:object="${book}" >
+
+        <div class="signup-group">
+            <label>Title</label>
+            <input type="text" name = "title" th:value="*{title}" placeholder="Title"  required>
+        </div>
+
+        <div class="signup-group">
+            <label>Author</label>
+            <input type="text" name = "author" th:value="*{author}" placeholder="Author"  required>
+        </div>
+        <div class="signup-group">
+            <label>Description</label>
+            <input type="text" name = "description" th:value="*{description}" placeholder="Description"  required>
+        </div>
+    <div th:object="${genres}" >
+        <div class="signup-group">
+        <select  id="genre" name="genre" >
+            <option th:each="genre : ${genres}" th:value="${genre.id}" th:utext="${genre.type}"/>
+        </select>
+        </div>
+    </div>
+
+        <div class="signup-group">
+            <label>Price</label>
+            <input type="price" name = "price" th:value="*{price}" placeholder="Price"  required>
+        </div>
+
+
+        <div class="signup-group">
+            <label> Select an image to upload</label>
+            <input type="file" name="image" accept="image/png, image/jpeg" th:value="*{image}" required><br>
+        </div>
+
+        <div class="signup-group">
+            <input type="submit" value="Process">
+        </div>
+</form>
 
 <footer>
     <div class="footer"> Bookstore

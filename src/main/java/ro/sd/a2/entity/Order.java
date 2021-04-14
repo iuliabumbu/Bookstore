@@ -33,7 +33,7 @@ public class Order {
     @Column
     private String deleted;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany
     private List<OrderItem> items = new ArrayList<OrderItem>();
 
     @ManyToOne
