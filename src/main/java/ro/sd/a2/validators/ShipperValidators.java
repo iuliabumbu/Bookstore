@@ -14,4 +14,10 @@ public class ShipperValidators {
             throw new InvalidParameterException(ErrorMessages.INVALID_COST);
         }
     }
+
+    public static void validateShipperId(String id){
+        if(StringUtils.isEmpty(id)){
+            throw new InvalidParameterException(ErrorMessages.INVALID_ID);
+        }
+    }
 }

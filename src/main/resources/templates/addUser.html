@@ -38,7 +38,7 @@
 <div class="signup-header">
     <h2>Add User</h2>
 </div>
-<form method="post" th:action="@{/addUser}" th:object="${user}">
+<form method="post" th:action="@{/addUser}" th:object="${userDto}">
 
     <div class="signup-group">
         <label>Name</label>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="signup-group">
-        <label>Genre type</label>
+        <label>Password</label>
         <input type="password" name = "password" th:value="*{password}" placeholder="Password"  required>
     </div>
 

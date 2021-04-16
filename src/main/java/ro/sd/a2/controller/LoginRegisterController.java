@@ -3,8 +3,10 @@ package ro.sd.a2.controller;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ro.sd.a2.dto.LoginDto;
 import ro.sd.a2.dto.UserDto;
 import ro.sd.a2.entity.User;
 import ro.sd.a2.exceptions.InvalidParameterException;
@@ -20,22 +22,8 @@ public class LoginRegisterController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginRegisterController.class);
 
-    private final UserService userService;
-
-    @GetMapping("/profile")
-    public ModelAndView showProfile() {
-        //validation if needed
-        //shall we log a little?
-        ModelAndView mav = new ModelAndView();
-        User user = new User("Bubu");
-
-        mav.addObject("userObj", user);
-        mav.addObject("numeStudent", user.getName());
-        // adaugi x obiecte
-        mav.setViewName("profile");
-        //log the final outcome: Success y?
-        return mav;
-    }
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/index")
     public ModelAndView mainMenu(){
@@ -45,17 +33,17 @@ public class LoginRegisterController {
     }
 
     @GetMapping("/register")
-    public ModelAndView register(User user){
+    public ModelAndView register(UserDto userDto){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("user", user);
+        mav.addObject("userDto", userDto);
         mav.setViewName("register");
         return mav;
     }
 
     @GetMapping("/login")
-    public ModelAndView login(UserDto userDto){
+    public ModelAndView login(LoginDto loginDto){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("userDto", userDto);
+        mav.addObject("loginDto", loginDto);
         mav.setViewName("login");
         return mav;
     }
@@ -77,24 +65,15 @@ public class LoginRegisterController {
     }
 
     @PostMapping("/register")
-    public ModelAndView processRegister(User user){
+    public ModelAndView processRegister(UserDto userDto){
         ModelAndView mav = new ModelAndView();
 
         try{
-            User newUser = UserFactory.generateUser();
-            newUser.setEmail(user.getEmail());
-            newUser.setPassword(user.getPassword());
-            newUser.setName(user.getName());
-            newUser.setSurname(user.getSurname());
-            newUser.setPhoneNumber(user.getPhoneNumber());
-
-            UserValidators.validateInsertUser(newUser);
-
-            userService.saveUser(newUser);
+            userService.saveUser(userDto);
 
             mav.setViewName("index");
 
-            log.info("New registration "+newUser.toString());
+            log.info("New registration "+ userDto.toString());
         }
         catch (Exception e){
             mav.addObject("error", e.getMessage());
@@ -105,17 +84,18 @@ public class LoginRegisterController {
     }
 
     @PostMapping("/login")
-    public ModelAndView processLogin(UserDto userDto){
+    public ModelAndView processLogin(LoginDto loginDto){
         ModelAndView mav = new ModelAndView();
 
-        log.info("New login "+ userDto.toString());
+        log.info("New login "+ loginDto.toString());
         try{
-            UserValidators.validateFindUserByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
+            UserValidators.validateFindUserByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
 
-            UserDto currentUser = userService.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
+            LoginDto currentUser = userService.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
             if(currentUser == null){
                 throw new InvalidParameterException(ErrorMessages.INVALID_LOGIN_USER);
             }
+
             mav.setViewName("indexUser");
         }
         catch (Exception e){

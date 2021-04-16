@@ -60,9 +60,26 @@
             <td><span th:text="${user.email}"> Email </span></td>
             <td><span th:text="${user.password}"> Password </span></td>
             <td><span th:text="${user.phoneNumber}"> Phone Number </span></td>
-            <td style="width: 100px;"><a href="editVeterinar.jsp?nume=${row.nume }&prenume=${row.prenume}&id=${row.idveterinar}
-					&adresa=${row.adresa}&email=${row.email}&telefon=${row.telefon}" style="color: #6bb1f8;">edit</a> ||
-                <a href="deleteVeterinar.jsp?id=${row.idveterinar}" style="color:#6bb1f8;">delete</a></td>
+            <td>
+                <form th:action="@{/toUpdateUser}" th:object="${user}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="hidden" name="name" th:value="${user.name}">
+                    <input type="hidden" name="surname" th:value="${user.surname}">
+                    <input type="hidden" name="email" th:value="${user.email}">
+                    <input type="hidden" name="password" th:value="${user.password}">
+                    <input type="hidden" name="phoneNumber" th:value="${user.phoneNumber}">
+                    <button type="submit">Update</button>
+                </form>
+                <form th:action="@{/deleteUser}" th:object="${user}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="hidden" name="name" th:value="${user.name}">
+                    <input type="hidden" name="surname" th:value="${user.surname}">
+                    <input type="hidden" name="email" th:value="${user.email}">
+                    <input type="hidden" name="password" th:value="${user.password}">
+                    <input type="hidden" name="phoneNumber" th:value="${user.phoneNumber}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

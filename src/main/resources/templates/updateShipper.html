@@ -36,23 +36,29 @@
 </header>
 
 <div class="signup-header">
-    <h2>Add promotion</h2>
+    <h2>Update Shipper</h2>
 </div>
-<form method="post" th:action="@{/addPromotions}" th:object="${promotion}">
+<form method="post" th:action="@{/updateShipper}" th:object="${shipperDto}">
 
     <div class="signup-group">
-        <label>Enter the discount ( in %)</label>
-        <input type="text" name = "discount" th:value="*{discount}" placeholder="promotion"  required>
+        <label>Id</label>
+        <input type="text" name = "id" th:value="*{id}" readonly="">
     </div>
-
+    <div class="signup-group">
+        <label>Name</label>
+        <input type="text" name = "name" th:value="*{name}">
+    </div>
 
     <div class="signup-group">
-        <input type="submit" value="Process">
+        <label>Cost</label>
+        <input type="text" name = "cost" th:value="*{cost}">
     </div>
-</form>
 
-<form th:action="@{/deletePromotion}"  method="post">
-    <button type="submit">Delete promotion</button>
+    <div class="signup-group">
+        <input type="submit" value="Update">
+    </div>
+    </div>
+
 </form>
 
 <footer>

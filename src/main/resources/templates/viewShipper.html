@@ -54,9 +54,20 @@
             <td><span th:text="${shipper.id}"> Id </span></td>
             <td><span th:text="${shipper.name}"> Name </span></td>
             <td><span th:text="${shipper.cost}"> Cost </span></td>
-            <td style="width: 100px;"><a href="editVeterinar.jsp?nume=${row.nume }&prenume=${row.prenume}&id=${row.idveterinar}
-					&adresa=${row.adresa}&email=${row.email}&telefon=${row.telefon}" style="color: #6bb1f8;">edit</a> ||
-                <a href="deleteVeterinar.jsp?id=${row.idveterinar}" style="color:#6bb1f8;">delete</a></td>
+            <td>
+                <form th:action="@{/toUpdateShipper}" th:object="${shipper}" method="post">
+                    <input type="hidden" name="id" th:value="${shipper.id}">
+                    <input type="hidden" name="name" th:value="${shipper.name}">
+                    <input type="hidden" name="cost" th:value="${shipper.cost}">
+                    <button type="submit">Update</button>
+                </form>
+                <form th:action="@{/deleteShipper}" th:object="${shipper}" method="post">
+                    <input type="hidden" name="id" th:value="${shipper.id}">
+                    <input type="hidden" name="name" th:value="${shipper.name}">
+                    <input type="hidden" name="cost" th:value="${shipper.cost}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

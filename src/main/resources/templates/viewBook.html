@@ -60,14 +60,26 @@
             <td><span th:text="${book.title}"> Title </span></td>
             <td><span th:text="${book.author}"> Author </span></td>
             <td><span th:text="${book.description}"> Description </span></td>
-            <td><span th:text="${book.genre}"> Genre </span></td>
+            <td><span th:text="${book.genre.type}"> Genre </span></td>
             <td><span th:text="${book.price}"> Price </span></td>
             <td><span th:text="${book.promotionPrice}"> Promotion price </span></td>
 
             <td><img th:src= "*{book.image}" height="100" width="70" > </td>
-            <td style="width: 100px;"><a href="editVeterinar.jsp?nume=${row.nume }&prenume=${row.prenume}&id=${row.idveterinar}
-					&adresa=${row.adresa}&email=${row.email}&telefon=${row.telefon}" style="color: #6bb1f8;">edit</a> ||
-                <a href="deleteVeterinar.jsp?id=${row.idveterinar}" style="color:#6bb1f8;">delete</a></td>
+            <td>
+                <form th:action="@{/toUpdateBook}" th:object="${book}" method="post">
+                    <input type="hidden" name="id" th:value="${book.id}">
+                    <input type="hidden" name="title" th:value="${book.title}">
+                    <input type="hidden" name="author" th:value="${book.author}">
+                    <input type="hidden" name="description" th:value="${book.description}">
+                    <input type="hidden" name="price" th:value="${book.price}">
+
+                    <button type="submit">Update</button>
+                </form>
+                <form th:action="@{/deleteBook}" th:object="${book}" method="post">
+                    <input type="hidden" name="id" th:value="${book.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

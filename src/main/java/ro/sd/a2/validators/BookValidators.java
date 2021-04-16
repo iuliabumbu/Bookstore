@@ -14,8 +14,18 @@ public class BookValidators {
                 throw new InvalidParameterException(ErrorMessages.INVALID_BOOK);
             }
 
-            if(book.getPrice() < 0 || book.getPromotionPrice() < 0) {
+            if(book.getPrice() < 0 || book.getPromotionPrice() < -1) {
                 throw new InvalidParameterException(ErrorMessages.INVALID_COST);
             }
+
+            if(book.getPrice() < book.getPromotionPrice() ) {
+                throw new InvalidParameterException(ErrorMessages.INVALID_BOOK_PROMOTION);
+            }
+    }
+
+    public static void validateBookId(String id){
+        if(StringUtils.isEmpty(id)){
+            throw new InvalidParameterException(ErrorMessages.INVALID_ID);
+        }
     }
 }

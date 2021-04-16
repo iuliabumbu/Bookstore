@@ -16,12 +16,7 @@ public class AdminService {
     private static final Logger log = LoggerFactory.getLogger(AdminService.class);
 
     @Autowired
-    private final AdminRepository adminRepository;
-
-    public AdminService(AdminRepository adminRepository){
-
-        this.adminRepository = adminRepository;
-    }
+    private AdminRepository adminRepository;
 
 
     public Administrator loginAdmin(String username, String password) {

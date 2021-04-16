@@ -8,18 +8,11 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class UserDto {
+public class ShipperDto {
 
     private String id;
 
-    private String email;
-
-    private String password;
-
     private String name;
 
-    private String surname;
-
-    private String phoneNumber;
-
+    private float cost;
 }

@@ -7,6 +7,6 @@ import ro.sd.a2.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    User findByEmailAndPassword(String email, String password);
+    User findByEmailAndPasswordAndDeleted(String email, String password, String deleted);
 
 }

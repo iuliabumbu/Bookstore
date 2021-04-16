@@ -11,4 +11,10 @@ public class GenreValidators {
             throw new InvalidParameterException(ErrorMessages.INVALID_TYPE);
         }
     }
+
+    public static void validateGenreId(String id){
+        if(StringUtils.isEmpty(id)){
+            throw new InvalidParameterException(ErrorMessages.INVALID_ID);
+        }
+    }
 }

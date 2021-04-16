@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public class Order {
     private String deleted;
 
     @OneToMany
-    private List<OrderItem> items = new ArrayList<OrderItem>();
+    private List<Book> items = new ArrayList<Book>();
 
     @ManyToOne
     @JoinColumn(name = "shipper_id")

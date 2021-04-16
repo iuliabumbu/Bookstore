@@ -38,7 +38,7 @@
 <div class="signup-header">
     <h2>Add Book</h2>
 </div>
-<form method="post" th:action="@{/addBook}" th:object="${book}" >
+<form method="post" th:action="@{/addBook}" th:object="${bookDto}" >
 
         <div class="signup-group">
             <label>Title</label>
@@ -53,6 +53,7 @@
             <label>Description</label>
             <input type="text" name = "description" th:value="*{description}" placeholder="Description"  required>
         </div>
+    <label>Genre type</label>
     <div th:object="${genres}" >
         <div class="signup-group">
         <select  id="genre" name="genre" >

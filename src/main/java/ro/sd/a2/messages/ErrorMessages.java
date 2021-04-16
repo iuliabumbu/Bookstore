@@ -14,7 +14,8 @@ public class ErrorMessages {
     public static final String INVALID_SHIPPER = "This shipper already exists";
     public static final String INVALID_COST = "Cost can not be negative";
     public static final String INVALID_BOOK = "All book fields must be completed";
-    public static final String INVALID_REQUEST_STATUS = "Status is not one of: Waiting/Accepted/Rejected";
+    public static final String INVALID_DISCOUNT= "Discount must be between 0 and 100 %";
+    public static final String INVALID_BOOK_PROMOTION = "Promotion price can not be higher than actual price";
     public static final String INVALID_PHONE_NUMBER = "Your phone number is incorrect (must have 10 digits)";
     public static final String INVALID_LOGIN_ADMIN = "Administrator username or password was incorrect, please try again";
     public static final String INVALID_LOGIN_USER= "Your email or password was incorrect, please try again";

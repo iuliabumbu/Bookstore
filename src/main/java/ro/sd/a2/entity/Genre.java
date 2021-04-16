@@ -21,7 +21,7 @@ public class Genre {
     @Column
     private String type;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Book> books= new ArrayList<Book>();
 
     @Column

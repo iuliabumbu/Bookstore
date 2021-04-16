@@ -42,8 +42,5 @@ public class User {
     @Column
     private String deleted;
 
-    public User(String name) {
-        this.name=name;
-    }
 
 }
