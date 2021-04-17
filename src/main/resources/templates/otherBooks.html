@@ -1,0 +1,90 @@
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrator main menu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+<header>
+    <h1>
+        <i class='fas fa-book' style='font-size:48px;color:black'></i>
+        Bookstore
+    </h1>
+    <h>
+        <nav>
+            <ul>
+                <li><a href="/app/indexView">Home</a></li>
+                <li><a href="/app/showBooks"> Check out all of our books!   </a></li>
+                <li><a href="/app/login"> Want to buy something? Login!</a></li>
+                <li><a href="/app/register"> Don't you have an account? Register!</a></li>
+            </ul>
+        </nav>
+    </h>
+
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"><!-- left -->
+            <div class="list-group"><!-- products -->
+                <a href="/app/showBooks" class="list-group-item" >All books</a>
+                <a href="/app/scienceFictionBooks" class="list-group-item">Science Fiction</a>
+                <a href="/app/romanceBooks" class="list-group-item">Romance</a>
+                <a href="/app/historyBooks" class="list-group-item" >History</a>
+                <a href="/app/travelBooks" class="list-group-item">Travel</a>
+                <a href="/app/actionBooks" class="list-group-item" >Action</a>
+                <a href="/app/personalDevelopmentBooks" class="list-group-item" >Personal Development</a>
+                <a href="/app/otherBooks" class="list-group-item" style="background: #efbfbf;">Others</a>
+            </div>
+        </div><!-- left -->
+
+        <div class="col-md-8"><!-- right -->
+
+            <h4 style="text-align: left;">Price sort:</h4>
+            <form th:action="@{/otherBooks}" th:object="${sort}" method="post" style="border: none;margin:0px;padding: 0px;margin-bottom: 20px;">
+                <input type="hidden" name="action" value="priceSort">
+                <select name="order">
+                    <option th:value="low-to-high">Low to high</option>
+                    <option th:value="high-to-low">High to low</option>
+                </select>
+                <input type="submit" value="Go!">
+            </form>
+
+            <div th:each="book : ${books}">
+                <div class="col-md-4">
+                    <img th:src= "*{book.image}" height="200" width="150" ><br>
+                    <div class="text-center"><a style="color: black;"><span th:text="${book.title}"> </span></a></div>
+                    <p style="text-align: center;"> <b>Author: </b> <span th:text="${book.author}"></span> </p>
+                    <p style="text-align: center;"> <b>Description: </b><span th:text="${book.description}"></span> </p>
+                    <p style="text-align: center;"> <b>Genre: </b><span th:text="${book.genre.type}"></span> </p>
+                    <p style="text-align: center;"> <b>Price: </b><span th:text="${book.price}"></span> </p>
+                    <p style="text-align: center; color: red;"><b><span th:if="${book.promotionPrice != -1}" th:text="${'Promotion price: ' + book.promotionPrice}">Promotion</span></b></p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<footer>
+    <div class="footer"> Bookstore
+    </div>
+</footer>
+</body>
+</html>
+
+
+

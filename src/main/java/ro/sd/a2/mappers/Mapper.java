@@ -5,17 +5,11 @@ import ro.sd.a2.entity.Book;
 import ro.sd.a2.entity.Genre;
 import ro.sd.a2.entity.Shipper;
 import ro.sd.a2.entity.User;
-import ro.sd.a2.exceptions.InvalidParameterException;
 import ro.sd.a2.factory.BookFactory;
 import ro.sd.a2.factory.GenreFactory;
 import ro.sd.a2.factory.ShipperFactory;
 import ro.sd.a2.factory.UserFactory;
-import ro.sd.a2.messages.ErrorMessages;
 import ro.sd.a2.validators.BookValidators;
-import ro.sd.a2.validators.GenreValidators;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Mapper {
 
@@ -29,6 +23,64 @@ public class Mapper {
                 .id(user.getId())
                 .email(user.getEmail())
                 .password((user.getPassword()))
+                .build();
+    }
+
+    public static UserDto userMapping(User user){
+
+        if(user == null){
+            return null;
+        }
+
+        return  UserDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .email(user.getEmail())
+                .password((user.getPassword()))
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+    }
+
+    public static GenreDto genreMapping(Genre genre){
+
+        if(genre == null){
+            return null;
+        }
+
+        return  GenreDto.builder()
+                .id(genre.getId())
+                .type(genre.getType())
+                .build();
+    }
+
+    public static BookDto bookMapping(Book book){
+
+        if(book == null){
+            return null;
+        }
+
+        return  BookDto.builder()
+                .id(book.getId())
+                .title(book.getTitle())
+                .author(book.getAuthor())
+                .price(book.getPrice())
+                .description(book.getDescription())
+                .genre(book.getGenre())
+                .image(book.getImage())
+                .build();
+    }
+
+    public static ShipperDto shipperMapping(Shipper shipper){
+
+        if(shipper == null){
+            return null;
+        }
+
+        return  ShipperDto.builder()
+                .id(shipper.getId())
+                .name(shipper.getName())
+                .cost(shipper.getCost())
                 .build();
     }
 

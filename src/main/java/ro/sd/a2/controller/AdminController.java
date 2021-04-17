@@ -14,16 +14,13 @@ import ro.sd.a2.dto.ShipperDto;
 import ro.sd.a2.dto.UserDto;
 import ro.sd.a2.entity.*;
 import ro.sd.a2.exceptions.InvalidParameterException;
-import ro.sd.a2.factory.BookFactory;
-import ro.sd.a2.factory.GenreFactory;
-import ro.sd.a2.factory.ShipperFactory;
-import ro.sd.a2.factory.UserFactory;
 import ro.sd.a2.messages.ErrorMessages;
 import ro.sd.a2.service.*;
 import ro.sd.a2.validators.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -159,6 +156,7 @@ public class AdminController {
     public ModelAndView addPromotions(Promotion promotion){
         ModelAndView mav = new ModelAndView();
         mav.addObject("promotion", promotion);
+        mav.addObject("books", bookService.findAllBooks());
         mav.setViewName("addPromotions");
         return mav;
     }
@@ -402,7 +400,7 @@ public class AdminController {
                 throw new InvalidParameterException(ErrorMessages.INVALID_DISCOUNT);
             }
 
-            bookService.addPromotion(promotion.getDiscount());
+            bookService.addPromotion(promotion.getDiscount(), promotion.getBook());
 
             mav.addObject("message", "Promotion was added successfully!");
             mav.setViewName("successAdmin");
@@ -451,6 +449,11 @@ public class AdminController {
     public ModelAndView processDeleteGenre(GenreDto genreDto){
         ModelAndView mav = new ModelAndView();
         try{
+            List<String> mainTypes = Collections.unmodifiableList(Arrays.asList("Science Fiction", "Romance",
+                                    "History", "Travel", "Personal Development", "Action"));
+            if(mainTypes.contains(genreDto.getType())){
+                throw new InvalidParameterException(ErrorMessages.INVALID_DELETE_GENRE);
+            }
             genreService.deleteGenre(genreDto);
             mav.addObject("message", "Genre deleted successfully!");
             mav.setViewName("successAdmin");
@@ -616,20 +619,20 @@ public class AdminController {
     }
 
     @PostMapping("/deletePromotion")
-    public ModelAndView processDeleteBook(){
+    public ModelAndView processDeletePromotions(){
         ModelAndView mav = new ModelAndView();
         try{
-            bookService.deletePromotion();
+            bookService.deletePromotions();
             mav.addObject("message", "Promotion deleted successfully!");
             mav.setViewName("successAdmin");
 
-            log.info("New delete promotion ");
+            log.info("All promotions deleted ");
         }
         catch (Exception e){
             mav.addObject("error", e.getMessage());
             mav.setViewName("errorAdmin");
 
-            log.info("Error occured during delete promotion ");
+            log.info("Error occured during delete promotions ");
         }
 
         return mav;

@@ -1,3 +1,4 @@
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -45,6 +46,15 @@
         <input type="text" name = "discount" th:value="*{discount}" placeholder="promotion"  required>
     </div>
 
+    <label>Select the book</label>
+    <div th:object="${books}" >
+        <div class="signup-group">
+            <select  id="book" name="book"  >
+                <option th:each="book : ${books}" th:value="${book.id}" th:utext="${book.title}"/>
+            </select>
+        </div>
+    </div>
+
 
     <div class="signup-group">
         <input type="submit" value="Process">
@@ -52,7 +62,7 @@
 </form>
 
 <form th:action="@{/deletePromotion}"  method="post">
-    <button type="submit">Delete promotion</button>
+    <button type="submit">Delete all promotions</button>
 </form>
 
 <footer>

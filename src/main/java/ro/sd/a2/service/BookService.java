@@ -88,17 +88,24 @@ public class BookService {
         return books;
     }
 
-    public void addPromotion(float price){
-        List<Book> books = findAllBooks();
+    public void addPromotion(float price, Book promotionBook){
 
-        for(Book book : books){
-            book.setPromotionPrice(book.getPrice() - book.getPrice() * price / 100);
-            BookValidators.validateBook(book);
-            bookRepository.save(book);
+        Optional<Book> book = findBookById(promotionBook.getId());
+
+        if( book.isPresent()){
+            book.get().setPromotionPrice(book.get().getPrice() - book.get().getPrice() * price / 100);
+            BookValidators.validateBook(book.get());
+            bookRepository.save(book.get());
+
+            log.info("Successfully added promotion to book " + book.toString());
+
+        }
+        else{
+            throw new InvalidParameterException(ErrorMessages.INVALID_FIND);
         }
     }
 
-    public void deletePromotion(){
+    public void deletePromotions(){
         List<Book> books = findAllBooks();
 
         for(Book book : books){

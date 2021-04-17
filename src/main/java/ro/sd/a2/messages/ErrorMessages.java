@@ -10,6 +10,7 @@ public class ErrorMessages {
     public static final String INVALID_SURNAME = "You must provide your surname";
     public static final String INVALID_TYPE = "Your genre must have a type";
     public static final String INVALID_GENRE = "This genre already exists";
+    public static final String INVALID_DELETE_GENRE = "Main genres can not be deleted!";
     public static final String INVALID_SHIPPER_NAME= "Every shipper must have a name";
     public static final String INVALID_SHIPPER = "This shipper already exists";
     public static final String INVALID_COST = "Cost can not be negative";

@@ -3,6 +3,10 @@ package ro.sd.a2.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
@@ -11,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Book {
+public class Book implements Comparable<Book>{
 
     @Id
     private String id;
@@ -40,4 +44,23 @@ public class Book {
 
     @Column
     private String deleted;
+
+    @Override
+    public int compareTo(Book book) {
+
+        return (int) (this.price - book.price);
+    }
+    public static List<Book> lowToHigh(List<Book> list) {
+        Collections.sort(list);
+        return list;
+    }
+
+    public static List<Book> highToLow(List<Book> list) {
+        List<Book> list2 = lowToHigh(list);
+        Collections.reverse(list2);
+
+        return list2;
+    }
+
 }
+
