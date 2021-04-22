@@ -19,15 +19,17 @@ public class AdminService {
     private AdminRepository adminRepository;
 
 
+    /**
+     * Metoda responsabila cu logarea administratului
+     * @param username - username-ul administratorului
+     * @param password - parola administratorului
+     * @return - functia returneaza obiectul Administrator gasit conform credentialelor primite ca parametru
+     */
     public Administrator loginAdmin(String username, String password) {
+        log.info("Admin login attempt");
+
         AdminValidators.validateAdminByUsernameAndPassword(username, password);
         Administrator administrator = adminRepository.findByUsernameAndPassword(username, password);
-
-        if(administrator == null){
-            throw new InvalidParameterException(ErrorMessages.INVALID_LOGIN_ADMIN);
-        }
-
-        log.info("Successfully login " + administrator.getUsername());
 
         return administrator;
     }

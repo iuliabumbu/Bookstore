@@ -25,8 +25,13 @@ public class GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
-
+    /**
+     * Metoda responsabila cu inserarea in baza de date a unei noi categorii
+     * @param genreDto - categoria pe care dorim sa o introducem
+     */
     public void saveGenre(GenreDto genreDto){
+        log.info("Insert genre attempt");
+
         Genre genre = Mapper.GenreDtoMapping(genreDto);
 
         GenreValidators.validateGenreType(genre.getType());
@@ -34,8 +39,14 @@ public class GenreService {
 
         log.info("Successfully created genre " + genre.toString());
     }
-
+    /**
+     * Metoda responsabila cu actualizarea datelor unei categorii
+     * @param genreDto - categoria pe care dorim sa o actualizam
+     * @throws InvalidParameterException - daca categoria pe care vrem sa o actualizam nu exista in baza de date
+     */
     public void updateGenre(GenreDto genreDto){
+        log.info("Update genre attempt");
+
         Optional<Genre> genre = findGenreById(genreDto.getId());
 
         if( genre.isPresent()){
@@ -51,8 +62,14 @@ public class GenreService {
         }
 
     }
-
+    /**
+     * Metoda responsabila cu stergerea unei categorii (stergere marcata prin setarea "yes" a campului deleted, nu stergere fizica)
+     * @param genreDto - categoria pe care dorim sa o stergem
+     * @throws InvalidParameterException - daca categoria pe care vrem sa o stergem nu exista in baza de date
+     */
     public void deleteGenre(GenreDto genreDto){
+        log.info("Delete genre attempt");
+
         Optional<Genre> genre = findGenreById(genreDto.getId());
 
         if( genre.isPresent()){
@@ -67,16 +84,26 @@ public class GenreService {
         }
 
     }
-
+    /**
+     * Metoda responsabila cu gasirea unei categorii din baza de date
+     * @param id - id-ul catgoriei pe care dorim sa o gasim
+     * @return - returneaza categoria gasita
+     */
     public Optional<Genre> findGenreById(String id){
+        log.info("Find genre by id attempt " + id);
+
         GenreValidators.validateGenreId(id);
         Optional<Genre> genre = genreRepository.findById(id);
 
         return genre;
     }
 
-
+    /**
+     * Metoda responsabila cu gasirea tuturor categoriilor din baza de date
+     * @return - returneaza o lista ce contine toate categoriile gasite
+     */
     public List<Genre> findAllGenres(){
+        log.info("Find all genres attempt");
         List<Genre> genres = genreRepository.findAll();
 
         return genres;

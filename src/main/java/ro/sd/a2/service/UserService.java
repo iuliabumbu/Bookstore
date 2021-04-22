@@ -29,13 +29,13 @@ public class UserService {
     @Autowired
     private  UserRepository userRepository;
 
-
-    public List<User> getAllUsers() {
-
-        return new ArrayList<>();
-    }
-
+    /**
+     * Metoda responsabila cu inserarea in baza de date a unui nou utilizator
+     * @param userDto - utilizatorul pe care dorim sa il introducem
+     */
     public void saveUser(UserDto userDto){
+        log.info("Insert user attempt");
+
         User user = Mapper.UserDtoMapping(userDto);
         UserValidators.validateInsertUser(user);
         userRepository.save(user);
@@ -43,13 +43,27 @@ public class UserService {
         log.info("Successfully created user " + user.toString());
     }
 
+    /**
+     * Metoda responsabila cu gasirea tuturor utilizatorilor din baza de date
+     * @return - returneaza o lista ce contine toti utilizatorii gasiti
+     */
     public List<User> findAllUsers(){
+        log.info("Find all users attempt");
+
         List<User> users = userRepository.findAll();
 
         return users;
     }
 
+    /**
+     * Metoda responsabila cu logarea utilizatorului
+     * @param email - email-ul utilizatorului
+     * @param password - parola utilizatorului
+     * @return - functia returneaza obiectul LoginDto gasit conform credentialelor primite ca parametru
+     */
     public LoginDto findByEmailAndPassword(String email, String password){
+        log.info("Find user by email and password attempt " + email + " " + password);
+
         UserValidators.validateFindUserByEmailAndPassword(email, password);
         User user = userRepository.findByEmailAndPasswordAndDeleted(email, password, "no");
 
@@ -58,7 +72,14 @@ public class UserService {
         return loginDto;
     }
 
+    /**
+     * Metoda responsabila cu actualizarea datelor unui utilizator
+     * @param userDto - utilizatorul pe care dorim sa il actualizam
+     * @throws InvalidParameterException - daca utilizatorul pe care vrem sa il actualizam nu exista in baza de date
+     */
     public void updateUser(UserDto userDto){
+        log.info("Update user attempt");
+
         Optional<User> user = findUserById(userDto.getId());
 
         if( user.isPresent()) {
@@ -79,7 +100,14 @@ public class UserService {
 
     }
 
+    /**
+     * Metoda responsabila cu stergerea unui utilizator (stergere marcata prin setarea "yes" a campului deleted, nu stergere fizica)
+     * @param userDto - utilizatorul pe care dorim sa il stergem
+     * @throws InvalidParameterException - daca utilizatorul pe care vrem sa il stergem nu exista in baza de date
+     */
     public void deleteUser(UserDto userDto){
+        log.info("Delete user attempt");
+
         Optional<User> user = findUserById(userDto.getId());
 
         if( user.isPresent()) {
@@ -95,8 +123,14 @@ public class UserService {
         }
 
     }
-
+    /**
+     * Metoda responsabila cu gasirea unui utilizator din baza de date
+     * @param id - id-ul utilizatorului pe care dorim sa il gasim
+     * @return - returneaza utilizatorul gasit
+     */
     public Optional<User> findUserById(String id){
+        log.info("Find user by id attempt " + id);
+
         UserValidators.validateFindUserById(id);
         Optional<User> user = userRepository.findById(id);
 

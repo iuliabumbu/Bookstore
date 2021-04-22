@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import ro.sd.a2.dto.LoginDto;
 import ro.sd.a2.service.UserService;
 
 @Controller
@@ -20,8 +21,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/indexUser")
-    public ModelAndView mainMenuUser(){
+    public ModelAndView mainMenuUser(LoginDto currentUser){
+        log.info("Called /indexUser page");
         ModelAndView mav = new ModelAndView();
+        mav.addObject("currentUser", currentUser);
         mav.setViewName("indexUser");
         return mav;
     }

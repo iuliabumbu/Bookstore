@@ -15,11 +15,7 @@ public class Mapper {
 
     public static LoginDto loginMapping(User user){
 
-        if(user == null){
-            return null;
-        }
-
-        return  LoginDto.builder()
+        return  user == null ? null : LoginDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .password((user.getPassword()))
@@ -28,11 +24,7 @@ public class Mapper {
 
     public static UserDto userMapping(User user){
 
-        if(user == null){
-            return null;
-        }
-
-        return  UserDto.builder()
+        return user == null ? null : UserDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -44,11 +36,7 @@ public class Mapper {
 
     public static GenreDto genreMapping(Genre genre){
 
-        if(genre == null){
-            return null;
-        }
-
-        return  GenreDto.builder()
+        return genre == null ? null : GenreDto.builder()
                 .id(genre.getId())
                 .type(genre.getType())
                 .build();
@@ -56,11 +44,7 @@ public class Mapper {
 
     public static BookDto bookMapping(Book book){
 
-        if(book == null){
-            return null;
-        }
-
-        return  BookDto.builder()
+        return book == null ? null : BookDto.builder()
                 .id(book.getId())
                 .title(book.getTitle())
                 .author(book.getAuthor())
@@ -73,11 +57,7 @@ public class Mapper {
 
     public static ShipperDto shipperMapping(Shipper shipper){
 
-        if(shipper == null){
-            return null;
-        }
-
-        return  ShipperDto.builder()
+        return shipper == null ? null : ShipperDto.builder()
                 .id(shipper.getId())
                 .name(shipper.getName())
                 .cost(shipper.getCost())
