@@ -1,0 +1,201 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.2
+-- Dumped by pg_dump version 13.2
+
+-- Started on 2021-04-22 18:26:56
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3096 (class 0 OID 16572)
+-- Dependencies: 200
+-- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.address (id, apartment, city, deleted, number, street) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3097 (class 0 OID 16580)
+-- Dependencies: 201
+-- Data for Name: admin; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.admin (id, password, username) FROM stdin;
+1867fce5-30d4-4ffa-87fe-37fa0bff4f9b	admin1234	admin
+\.
+
+
+--
+-- TOC entry 3098 (class 0 OID 16588)
+-- Dependencies: 202
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.book (id, author, deleted, description, image, price, promotion_price, title, genre_id) FROM stdin;
+85ef3fe3-3761-4b43-9ae9-44d052c2f373	Jojo Moyes	no	Lou Clark știe o mulțime de lucruri. Știe câți pași sunt de la stația de autobuz până acasă. Știe că îi place să lucreze la ceainăria The Buttered Bun și că s-ar putea să nu fie îndrăgostită de iubitul ei, Patrick.	me-before-you-242055l.jpg	45	-1	Înainte să te cunosc	224bcf72-ce42-495c-8526-35b3dba4f148
+4080a802-586f-47ed-9648-dbc603269f1d	Markus Zusak	no	Hotul de carti este o poveste despre puterea cuvintelor de a creea lumi. Cu o scriitura superb maiestrita si arzand cu intensitate, premiatul autor Marcus Zusak ne-a daruit una dintre cele mai durabile povesti ale timpurilor noastre.	hotul-de-carti-markus-zusak.jpg	42.99	-1	Hotul de carti	3adf3150-632f-41c9-9d32-bd3aced4bce7
+3292f7bd-095c-4191-ab70-4b7734db26b8	GEORGE ORWELL	no	"Orwellian este acum un adjectiv universal pentru tot ce e opresiv sau totalitar, iar povestea lui Winston Smith, un anonim al timpului sau, continua sa rezoneze la fel de mult pentru cititorii de azi ca si pentru cei din anii 1950." (The Guardian)	res_98722e9403ab4bdea7aa38b58f6e7109.jpg	39.95	-1	O mie noua sute optzeci si patru	3adf3150-632f-41c9-9d32-bd3aced4bce7
+d09c558a-c881-4c06-ae26-e315418b58fb	Alex Michaelides	no	Pacienta tăcută este un thriller psihologic șocant despre un act de violență extrem al unei femei împotriva soţului ei – și despre un terapeut obsedat de descoperirea motivului din spatele acestui act	990c3bb7-8a9f-41b4-bb38-65e730dd1a68_1.jpg	46.9	-1	Pacienta tacuta	2cca8edc-210a-4199-9812-077287cf53bf
+012f889a-423b-45c1-b3a4-11df92a3ef48	Frederick Kempe	no	"Berlinul este cel mai periculos loc din lume. URSS dorește să realizeze o operație asupra acestui punct sensibil, să elimine acest ghimpe, acest ulcer.“ 	berlin-1961-kennedy-hrusciov-si-cel-mai-periculos-loc-din-lume---frederick-kempe.jpg	34.9	-1	Berlin 1961	43f05d01-272e-4b6d-bfab-8e18594f5344
+b95ad036-9a0e-4c1f-b87f-c92c2ab0d20a	Jay Shetty	no	Superputerea lui Jay Shetty este să facă înțelepciunea accesibilă și relevantă. Cartea sa este profundă, practică și îți atrage atenția. 	860779748-1.png	49	-1	 Gandeste ca un calugar	2a4c285b-62a2-427c-aefc-1482d7d28905
+427b7e5b-62c5-4070-8fe1-b2ca9114747a	Elena Ferrante	no	"Un portret viu si necrutator al unei prietenii pe viata. Ferrante scrie cu atata vehementa si acuitate psihologica despre relatia complexa de prietenie dintre cele doua femei, incat, in timp ce o citesti, lumea din jur inceteaza sa mai existe."	946113.jpg	38	-1	Prietena mea geniala	93810a22-37b8-4736-92fd-2bd201605298
+31bff4d0-0e30-42bc-b0e7-1829838db720	National Geographic	no	Vizitează lumea cu acest ghid mai special de călătorii. Experţii în turism de la National Geographic îţi prezintă cele mai interesante 220 de orașe ale lumii, ilustrate prin imagini spectaculoase și din perspective unice.	cele-mai-frumoase-orase-220-de-destinatii-de-neuitat.jpg	75	-1	Cele mai frumoase orașe	4b385384-4e5a-4c2d-b2c3-f6d85631a43d
+4adc1855-c330-41b7-b300-329aaa32f305	John Maxwell	no	„Eșecul nu înseamnă că nu vei reuși niciodată. Înseamnă doar că va dura mai mult timp. […] Când vine vorba ce îți place să faci, lucrul pentru care ai fost menit, țintește sus. Așteptările contează mai puțin.“	41N7LWeumrL._SX323_BO1,204,203,200_.jpg	38	26.6	Rețeta succesului	2a4c285b-62a2-427c-aefc-1482d7d28905
+8161206b-88a5-4e50-8f38-75daa36add4f	Sun Tzu	no	Noua editie din Arta razboiului contine un amplu dosar de receptare a acestei carti fundamentale pentru gandirea strategica, volum utilizat frecvent in afaceri, in managementul crizelor, in trainingul leaderilor, in politica si in teoriile jocului.	arta-razboiului-sun-tzu-00013545.jpg	32.5	-1	Arta Razboiului	43f05d01-272e-4b6d-bfab-8e18594f5344
+8b1e5fba-3cdc-40db-8d97-80a8fc04e773	Nicholas Sparks	no	Hope Anderson se află la o răscruce în viața ei. Are 36 de ani și este implicată de șase ani într-o relație cu un chirurg ortoped	875422929-0.png	49.9	37.425003	Respiratie in doi	224bcf72-ce42-495c-8526-35b3dba4f148
+\.
+
+
+--
+-- TOC entry 3099 (class 0 OID 16596)
+-- Dependencies: 203
+-- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.genre (id, deleted, type) FROM stdin;
+224bcf72-ce42-495c-8526-35b3dba4f148	no	Romance
+2cca8edc-210a-4199-9812-077287cf53bf	no	Action
+43f05d01-272e-4b6d-bfab-8e18594f5344	no	History
+4b385384-4e5a-4c2d-b2c3-f6d85631a43d	no	Travel
+2a4c285b-62a2-427c-aefc-1482d7d28905	no	Personal Development
+3adf3150-632f-41c9-9d32-bd3aced4bce7	no	Science Fiction
+93810a22-37b8-4736-92fd-2bd201605298	no	Drama
+\.
+
+
+--
+-- TOC entry 3100 (class 0 OID 16604)
+-- Dependencies: 204
+-- Data for Name: genre_books; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.genre_books (genre_id, books_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3101 (class 0 OID 16610)
+-- Dependencies: 205
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.orders (id, data, deleted, status, user_id, shipper_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3102 (class 0 OID 16618)
+-- Dependencies: 206
+-- Data for Name: orders_items; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.orders_items (order_id, items_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3103 (class 0 OID 16624)
+-- Dependencies: 207
+-- Data for Name: residence; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.residence (id, deleted, address_id, owner_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3104 (class 0 OID 16632)
+-- Dependencies: 208
+-- Data for Name: shipper; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.shipper (id, cost, deleted, name) FROM stdin;
+a08c6518-ad75-4795-b47f-97454198bcdc	19	no	Fan Courier
+2ebe2a42-2368-4ea6-8135-fa6b917f74d4	21	no	DPD Romania
+89a11262-1246-4446-9f93-01c4d3ded0ea	25	no	SameDay
+\.
+
+
+--
+-- TOC entry 3105 (class 0 OID 16640)
+-- Dependencies: 209
+-- Data for Name: shipper_orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.shipper_orders (shipper_id, orders_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3106 (class 0 OID 16646)
+-- Dependencies: 210
+-- Data for Name: user_orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_orders (user_id, orders_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3107 (class 0 OID 16652)
+-- Dependencies: 211
+-- Data for Name: user_residences; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_residences (user_id, residences_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3108 (class 0 OID 16723)
+-- Dependencies: 212
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, deleted, email, name, password, phone_number, surname) FROM stdin;
+97f0cd8d-b34d-47ec-bd0e-f876741a6608	no	iulia_bumbu@yahoo.com	Iulia	parola07	0788656234	Bumbu
+5d5cc01b-e00a-4092-be44-2c7a595eef91	no	ionP@gmail.com	Ion	parola1234	0788654321	Popescu
+4d1fc553-cb74-4eeb-8ef5-b44f4dbaa978	yes	io95@yahoo.com	Ioana	booklover	0766544878	Sorescu
+\.
+
+
+--
+-- TOC entry 3109 (class 0 OID 16731)
+-- Dependencies: 213
+-- Data for Name: users_orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users_orders (user_id, orders_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3110 (class 0 OID 16737)
+-- Dependencies: 214
+-- Data for Name: users_residences; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users_residences (user_id, residences_id) FROM stdin;
+\.
+
+
+-- Completed on 2021-04-22 18:26:57
+
+--
+-- PostgreSQL database dump complete
+--
+
