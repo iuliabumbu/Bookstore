@@ -1,0 +1,81 @@
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrator main menu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+<header>
+    <h1>
+        <i class='fas fa-book' style='font-size:48px;color:black'></i>
+        Bookstore
+    </h1>
+    <h>
+        <nav>
+            <ul>
+                <li><a href="/app/indexUser">Home</a></li>
+                <li><a href="/app/showBooks"> Check out all of our books!</a></li>
+                <li><a href="/app/addAddress"> Add address </a></li>
+                <li><a href="/app/viewAddress"> View Addresses</a></li>
+                <li><a href="/app/viewAccount"> View Account </a></li>
+                <li><a href="/app/viewUserOrder"> View Orders </a></li>
+                <li><a href="/app/shoppingCart"> Shopping cart </a></li>
+                <li><a href="/app/logout"> Logout</a></li>
+            </ul>
+        </nav>
+    </h>
+
+</header>
+
+<div class="container">
+    <h2>Shopping cart:</h2>
+    <table style="table-layout: fixed;width: 100%;">
+        <thead>
+        <tr>
+            <th> Title </th>
+            <th> Author </th>
+            <th> Price </th>
+            <th> Promotion price </th>
+            <th> Image </th>
+            <th> Operation </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${cart.empty}">
+            <td colspan="2"> Empty Shopping Cart </td>
+        </tr>
+        <tr th:each="book : ${cart}">
+            <td><span th:text="${book.title}"> Title </span></td>
+            <td><span th:text="${book.author}"> Author </span></td>
+            <td><span th:text="${book.price}"> Price </span></td>
+            <td th:if="${book.promotionPrice} > 0"><span th:text="${book.promotionPrice}"> Promotion price </span></td>
+            <td th:unless="${book.promotionPrice} > 0"><span th:text="None"> Promotion price </span></td>
+
+            <td><img th:src= "*{book.image}" height="100" width="70" > </td>
+            <td>
+                <form th:action="@{/deleteFromCart}" th:object="${book}" method="post">
+                    <input type="hidden" name="id" th:value="${book.id}">
+                    <button type="submit"><a class="btn btn-primary"/>Remove</a></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+        <form th:action="@{/processOrder}" method="post">
+            <button type="submit"><a class="btn btn-primary"/>Checkout</a></button>
+        </form>
+    </table>
+
+</div>
+
+<footer>
+    <div class="footer"> Bookstore
+    </div>
+</footer>
+</body>
+</html>

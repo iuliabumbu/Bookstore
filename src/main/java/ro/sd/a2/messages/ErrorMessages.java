@@ -21,4 +21,7 @@ public class ErrorMessages {
     public static final String INVALID_LOGIN_ADMIN = "Administrator username or password was incorrect, please try again";
     public static final String INVALID_LOGIN_USER= "Your email or password was incorrect, please try again";
     public static final String INVALID_FIND = "No data was found, please try again! Id may be incorrect";
+    public static final String INVALID_OWNER= "Residence owner must be provided";
+    public static final String INVALID_ADDRESS = "All address fields must be provided";
+    public static final String INVALID_ORDER = "All order fields must be completed correctly";
 }

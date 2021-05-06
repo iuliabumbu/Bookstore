@@ -39,6 +39,20 @@
 
 <div class="container">
     <h2>View Books:</h2>
+    <form method="post" th:action="@{/generateInventory}" th:object="${document}" >
+        <table>
+            <tr>
+                <td>Document type:</td>
+                <td>
+                    <select  id="type" name="type" >
+                        <option th:value="'txt'" th:text="TXT"></option>
+                        <option th:value="'pdf'" th:text="PDF"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Generate inventory</button>
+    </form>
     <table style="table-layout: fixed;width: 100%;">
         <thead>
         <tr>

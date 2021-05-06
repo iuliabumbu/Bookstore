@@ -32,14 +32,38 @@
 
 </header>
 
-<div class="container">
-    <img src="logo.jpg" style="width: 100%;">
-    <div class="text-block">
-        <p>Welcome to our bookstore</p>
-        <p th:text="${session.currUser}" th:unless="${session == null}"> . </p>
-    </div>
+<div class="signup-header">
+    <h2>Process Order</h2>
 </div>
+<form method="post" th:action="@{/processOrder}" th:object="${orderDto}" >
 
+
+    <label>Select your delivery address</label>
+    <div th:object="${addresses}" >
+        <div class="signup-group">
+            <select  id="address" name="address" >
+                <option th:each="address : ${addresses}" th:value="${address.id}" th:utext="${address.street}"/>
+            </select>
+        </div>
+    </div>
+
+    <label>Select a shipping company</label>
+    <div th:object="${shippers}" >
+        <div class="signup-group">
+            <select  id="shipper" name="shipper" >
+                <option th:each="shipper : ${shippers}" th:value="${shipper.id}" th:utext="${shipper.name}(${shipper.cost})"/>
+            </select>
+        </div>
+    </div>
+
+    <label>Total cost: </label>
+    <p th:text="${total}">(in RON)</p>
+
+
+    <div class="signup-group">
+        <input type="submit" value="Process Order">
+    </div>
+</form>
 
 <footer>
     <div class="footer"> Bookstore

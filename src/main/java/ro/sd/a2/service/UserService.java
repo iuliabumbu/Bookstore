@@ -1,23 +1,17 @@
 package ro.sd.a2.service;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.sd.a2.dto.LoginDto;
 import ro.sd.a2.dto.UserDto;
-import ro.sd.a2.entity.Genre;
-import ro.sd.a2.entity.Shipper;
 import ro.sd.a2.entity.User;
 import ro.sd.a2.exceptions.InvalidParameterException;
-import ro.sd.a2.factory.UserFactory;
 import ro.sd.a2.mappers.Mapper;
 import ro.sd.a2.messages.ErrorMessages;
 import ro.sd.a2.service.repository.UserRepository;
-import ro.sd.a2.validators.GenreValidators;
 import ro.sd.a2.validators.UserValidators;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

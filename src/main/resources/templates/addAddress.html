@@ -31,14 +31,38 @@
     </h>
 
 </header>
-
-<div class="container">
-    <img src="logo.jpg" style="width: 100%;">
-    <div class="text-block">
-        <p>Welcome to our bookstore</p>
-        <p th:text="${session.currUser}" th:unless="${session == null}"> . </p>
-    </div>
+<div class="signup-header">
+    <h2>Add address</h2>
 </div>
+<form method="post" th:action="@{/addAddress}" th:object="${addressDto}">
+
+    <div class="signup-group">
+        <label>Street</label>
+        <input type="text" name = "street" th:value="*{street}" placeholder="Street"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Apartment</label>
+        <input type="text" name = "apartment" th:value="*{apartment}" placeholder="Apartment"  required>
+    </div>
+
+    <div class="signup-group">
+        <label>Number</label>
+        <input type="text" name = "number" th:value="*{number}" placeholder="Number"  required>
+    </div>
+
+
+    <div class="signup-group">
+        <label>City</label>
+        <input type="text" name = "city" th:value="*{city}" placeholder="City"  required>
+    </div>
+
+
+    <div class="signup-group">
+        <input type="submit" value="Process">
+    </div>
+
+</form>
 
 
 <footer>

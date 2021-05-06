@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface ShipperRepository extends JpaRepository<Shipper, String> {
-
 }

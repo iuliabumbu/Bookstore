@@ -1,15 +1,10 @@
 package ro.sd.a2.mappers;
 
 import ro.sd.a2.dto.*;
-import ro.sd.a2.entity.Book;
-import ro.sd.a2.entity.Genre;
-import ro.sd.a2.entity.Shipper;
-import ro.sd.a2.entity.User;
-import ro.sd.a2.factory.BookFactory;
-import ro.sd.a2.factory.GenreFactory;
-import ro.sd.a2.factory.ShipperFactory;
-import ro.sd.a2.factory.UserFactory;
+import ro.sd.a2.entity.*;
+import ro.sd.a2.factory.*;
 import ro.sd.a2.validators.BookValidators;
+import ro.sd.a2.validators.OrderValidators;
 
 public class Mapper {
 
@@ -55,6 +50,17 @@ public class Mapper {
                 .build();
     }
 
+    public static AddressDto addressMapping(Address address){
+
+        return address == null ? null : AddressDto.builder()
+                .id(address.getId())
+                .street(address.getStreet())
+                .apartment(address.getApartment())
+                .city(address.getCity())
+                .number(address.getNumber())
+                .build();
+    }
+
     public static ShipperDto shipperMapping(Shipper shipper){
 
         return shipper == null ? null : ShipperDto.builder()
@@ -64,6 +70,18 @@ public class Mapper {
                 .build();
     }
 
+    public static OrderDto orderMapping(Order order){
+
+        return order == null ? null : OrderDto.builder()
+                .id(order.getId())
+                .status(order.getStatus())
+                .items(order.getItems())
+                .address(order.getAddress())
+                .shipper(order.getShipper())
+                .owner(order.getOwner())
+                .totalCost(order.getTotalCost())
+                .build();
+    }
     public static User UserDtoMapping(UserDto user){
 
         User newUser = UserFactory.generateUser();
@@ -93,6 +111,17 @@ public class Mapper {
         return newShipper;
     }
 
+    public static Address AddressDtoMapping(AddressDto address){
+
+        Address newAddress = AddressFactory.generateAddress();
+        newAddress.setApartment(address.getApartment());
+        newAddress.setNumber(address.getNumber());
+        newAddress.setStreet(address.getStreet());
+        newAddress.setCity(address.getCity());
+
+        return newAddress;
+    }
+
     public static Book BookDtoMapping(BookDto book){
 
         Book newBook = BookFactory.generateBook();
@@ -105,6 +134,20 @@ public class Mapper {
         BookValidators.validateBook(newBook);
 
         return newBook;
+    }
+
+    public static Order OrderDtoMapping(OrderDto order){
+
+        Order newOrder = OrderFactory.generateOrder();
+        newOrder.setItems(order.getItems());
+        newOrder.setOwner(order.getOwner());
+        newOrder.setAddress(order.getAddress());
+        newOrder.setShipper(order.getShipper());
+        newOrder.setStatus(order.getStatus());
+        newOrder.setTotalCost(order.getTotalCost());
+        OrderValidators.validateOrder(newOrder);
+
+        return newOrder;
     }
 
 }

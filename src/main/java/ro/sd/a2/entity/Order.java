@@ -33,12 +33,19 @@ public class Order {
     @Column
     private String deleted;
 
+    @Column
+    private float totalCost;
+
     @OneToMany
     private List<Book> items = new ArrayList<Book>();
 
     @ManyToOne
     @JoinColumn(name = "shipper_id")
     private Shipper shipper;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 
 

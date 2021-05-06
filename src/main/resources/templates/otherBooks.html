@@ -18,10 +18,22 @@
     <h>
         <nav>
             <ul>
-                <li><a href="/app/indexView">Home</a></li>
-                <li><a href="/app/showBooks"> Check out all of our books!   </a></li>
-                <li><a href="/app/login"> Want to buy something? Login!</a></li>
-                <li><a href="/app/register"> Don't you have an account? Register!</a></li>
+                <div th:if="${session.currUser}">
+                    <li><a href="/app/indexUser">Home</a></li>
+                    <li><a href="/app/showBooks"> Check out all of our books!</a></li>
+                    <li><a href="/app/addAddress"> Add address </a></li>
+                    <li><a href="/app/viewAddress"> View Addresses</a></li>
+                    <li><a href="/app/viewAccount"> View Account </a></li>
+                    <li><a href="/app/viewUserOrder"> View Orders </a></li>
+                    <li><a href="/app/shoppingCart"> Shopping cart </a></li>
+                    <li><a href="/app/logout"> Logout</a></li>
+                </div>
+                <div th:unless="${session.currUser}">
+                    <li><a href="/app/indexView">Home</a></li>
+                    <li><a href="/app/showBooks"> Check out all of our books!   </a></li>
+                    <li><a href="/app/login"> Want to buy something? Login!</a></li>
+                    <li><a href="/app/register"> Don't you have an account? Register!</a></li>
+                </div>
             </ul>
         </nav>
     </h>
@@ -64,7 +76,18 @@
                     <p style="text-align: center;"> <b>Genre: </b><span th:text="${book.genre.type}"></span> </p>
                     <p style="text-align: center;"> <b>Price: </b><span th:text="${book.price}"></span> </p>
                     <p style="text-align: center; color: red;"><b><span th:if="${book.promotionPrice != -1}" th:text="${'Promotion price: ' + book.promotionPrice}">Promotion</span></b></p>
+                    <div th:if="${session.currUser}" class="text-center">
+                        <form th:action="@{/toShoppingCart}" th:object="${book}" method="post">
+                            <input type="hidden" name="id" th:value="${book.id}">
+                            <input type="hidden" name="title" th:value="${book.title}">
+                            <input type="hidden" name="author" th:value="${book.author}">
+                            <input type="hidden" name="price" th:value="${book.price}">
+                            <input type="hidden" name="promotionPrice" th:value="${book.promotionPrice}">
+                            <input type="hidden" name="image" th:value="${book.image}">
 
+                            <button type="submit" ><a class="btn btn-primary"/>Buy</a></button>
+                        </form>
+                    </div>
                 </div>
             </div>
 

@@ -16,6 +16,9 @@ import ro.sd.a2.entity.*;
 import ro.sd.a2.exceptions.InvalidParameterException;
 import ro.sd.a2.messages.ErrorMessages;
 import ro.sd.a2.service.*;
+import ro.sd.a2.utils.Context;
+import ro.sd.a2.utils.GeneratePDF;
+import ro.sd.a2.utils.GenerateTXT;
 import ro.sd.a2.validators.*;
 import java.util.Arrays;
 import java.util.Collections;
@@ -308,6 +311,15 @@ public class AdminController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("bookDto", bookDto);
         mav.setViewName("deleteBook");
+        return mav;
+    }
+
+    @GetMapping("/generateInventory")
+    public ModelAndView generateInventory(Document document){
+        log.info("Called /generateInventory page");
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("document", document);
+        mav.setViewName("generateInventory");
         return mav;
     }
 
@@ -768,6 +780,43 @@ public class AdminController {
             mav.setViewName("errorAdmin");
 
             log.warn("Error occured during delete promotions ");
+        }
+
+        return mav;
+    }
+
+    @PostMapping("/generateInventory")
+    public ModelAndView processGenerateInventory(Document document){
+        ModelAndView mav = new ModelAndView();
+        try{
+
+            System.out.println("Am gasit "+ document.getType());
+            List<Book> books = bookService.findAllBooks();
+
+            books.removeIf( p -> p.getDeleted().equals("yes"));
+
+            Context context;
+
+            if(document.getType().equals("txt")){
+                context = new Context(new GenerateTXT());
+                context.executeStrategy(books);
+            }
+            else if(document.getType().equals("pdf")){
+                context = new Context(new GeneratePDF());
+                context.executeStrategy(books);
+            }
+
+
+            mav.addObject("message", "Inventory generated successfully!");
+            mav.setViewName("successAdmin");
+
+            log.info("Inventory generated ");
+        }
+        catch (Exception e){
+            mav.addObject("error", e.getMessage());
+            mav.setViewName("errorAdmin");
+
+            log.warn("Error occured during generate inventory ");
         }
 
         return mav;

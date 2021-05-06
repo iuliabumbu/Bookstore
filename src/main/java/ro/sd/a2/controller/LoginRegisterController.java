@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ro.sd.a2.dto.LoginDto;
 import ro.sd.a2.dto.UserDto;
+import ro.sd.a2.entity.Book;
 import ro.sd.a2.exceptions.InvalidParameterException;
 import ro.sd.a2.messages.ErrorMessages;
 import ro.sd.a2.service.UserService;
 import ro.sd.a2.validators.UserValidators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
 @Data
+@SessionAttributes({"currUser", "cart"})
 public class LoginRegisterController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginRegisterController.class);
@@ -112,7 +117,9 @@ public class LoginRegisterController {
             if(currentUser == null){
                 throw new InvalidParameterException(ErrorMessages.INVALID_LOGIN_USER);
             }
-            mav.addObject("currentUser", currentUser);
+            mav.addObject("currUser", currentUser.getId());
+            List<Book> books = new ArrayList<Book>();
+            mav.addObject("cart", books);
 
             mav.setViewName("indexUser");
 

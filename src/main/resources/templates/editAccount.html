@@ -31,14 +31,45 @@
     </h>
 
 </header>
-
-<div class="container">
-    <img src="logo.jpg" style="width: 100%;">
-    <div class="text-block">
-        <p>Welcome to our bookstore</p>
-        <p th:text="${session.currUser}" th:unless="${session == null}"> . </p>
-    </div>
+<div class="signup-header">
+    <h2>View and Edit Account</h2>
 </div>
+<form method="post" th:action="@{/viewAccount}" th:object="${userDto}">
+
+    <div class="signup-group">
+        <label>Id</label>
+        <input type="text" name = "id" th:value="*{id}" readonly="">
+    </div>
+
+    <div class="signup-group">
+        <label>Name</label>
+        <input type="text" name = "name" th:value="*{name}">
+    </div>
+    <div class="signup-group">
+        <label>Surname</label>
+        <input type="text" name = "surname" th:value="*{surname}">
+    </div>
+    <div class="signup-group">
+        <label>Email</label>
+        <input type="text" name = "email" th:value="*{email}">
+    </div>
+    <div class="signup-group">
+        <label>Password</label>
+        <input type="text" name = "password" th:value="*{password}">
+    </div>
+    <div class="signup-group">
+        <label>Phone number</label>
+        <input type="text" name = "phoneNumber" th:value="*{phoneNumber}">
+    </div>
+
+
+    <div class="signup-group">
+        <input type="submit" value="Edit account">
+    </div>
+    </div>
+
+</form>
+
 
 
 <footer>

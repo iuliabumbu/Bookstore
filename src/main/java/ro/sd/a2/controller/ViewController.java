@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import ro.sd.a2.dto.LoginDto;
 import ro.sd.a2.entity.Book;
 import ro.sd.a2.entity.Sort;
 import ro.sd.a2.service.BookService;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("currUser")
 public class ViewController {
 
     private static final Logger log = LoggerFactory.getLogger(ViewController.class);

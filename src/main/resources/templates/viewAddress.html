@@ -33,13 +33,38 @@
 </header>
 
 <div class="container">
-    <img src="logo.jpg" style="width: 100%;">
-    <div class="text-block">
-        <p>Welcome to our bookstore</p>
-        <p th:text="${session.currUser}" th:unless="${session == null}"> . </p>
-    </div>
+    <h2>View Addresses:</h2>
+    <table style="table-layout: fixed;width: 100%;">
+        <thead>
+        <tr>
+            <th> Id </th>
+            <th> Street </th>
+            <th> Apartment</th>
+            <th> Number </th>
+            <th> City </th>
+            <th> Operation </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${addresses.empty}">
+            <td colspan="2"> No addresses Available </td>
+        </tr>
+        <tr th:each="address:${addresses}">
+            <td><span th:text="${address.id}"> Id </span></td>
+            <td><span th:text="${address.street}"> Street </span></td>
+            <td><span th:text="${address.apartment}"> Apartment </span></td>
+            <td><span th:text="${address.number}"> Number </span></td>
+            <td><span th:text="${address.city}"> City </span></td>
+            <td>
+                <form th:action="@{/deleteAddress}" th:object="${address}" method="post">
+                    <input type="hidden" name="id" th:value="${address.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
 
 <footer>
     <div class="footer"> Bookstore
