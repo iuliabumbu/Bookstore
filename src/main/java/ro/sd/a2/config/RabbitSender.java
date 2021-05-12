@@ -4,6 +4,7 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ro.sd.a2.dto.UserDto;
 
 
 @Service
@@ -18,7 +19,7 @@ public class RabbitSender {
     @Value("${queue.rabbitmq.routingkey}")
     private String routingkey;
 
-    public void send(String payload) {
+    public void send(UserDto payload) {
         rabbitTemplate.convertAndSend(exchange, routingkey, payload);
         System.out.println("Send msg = " + payload);
     }

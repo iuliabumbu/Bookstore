@@ -131,4 +131,15 @@ public class UserService {
         return user;
     }
 
+    public UserDto findByEmail(String email){
+        log.info("Find user by email attempt " + email);
+
+        UserValidators.validateFindUserByEmail(email);
+        User user = userRepository.findByEmailAndDeleted(email, "no");
+
+        UserDto userDto = Mapper.userMapping(user);
+
+        return userDto;
+    }
+
 }

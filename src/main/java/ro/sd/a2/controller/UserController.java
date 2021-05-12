@@ -22,6 +22,7 @@ import ro.sd.a2.service.ResidenceService;
 import ro.sd.a2.service.ShipperService;
 import ro.sd.a2.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @SessionAttributes({"currUser", "cart"})
 public class UserController {
+    @Autowired
+    private RabbitSender rabbitMQSender;
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -43,29 +46,6 @@ public class UserController {
 
     @Autowired
     private ShipperService shipperService;
-
-    @Autowired
-    private RabbitSender rabbitMQSender;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @GetMapping("/page")
-    public ModelAndView page() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("page");
-
-        rabbitMQSender.send("Hello gr 8");
-/*
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
-        System.err.println(restTemplate.exchange("http://localhost:8080/test",
-                HttpMethod.GET, entity, String.class).getBody());
- */
-
-        return mav;
-    }
 
 
     @GetMapping("/indexUser")
@@ -100,15 +80,6 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("userDto", userDto);
         mav.setViewName("editUser");
-        return mav;
-    }
-
-    @GetMapping("/logout")
-    public ModelAndView logoutUser(){
-        log.info("Called /logout page");
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("currUser", null);
-        mav.setViewName("index");
         return mav;
     }
 
@@ -221,6 +192,7 @@ public class UserController {
 
         ///......
 
+
         mav.setViewName("processOrder");
         return mav;
     }
@@ -251,6 +223,8 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         try{
             userService.updateUser(userDto);
+
+            rabbitMQSender.send(userDto);
 
             mav.addObject("message", "Your account has been updated successfully!");
             mav.setViewName("successUser");

@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     User findByEmailAndPasswordAndDeleted(String email, String password, String deleted);
 
+    User findByEmailAndDeleted(String email, String deleted);
+
 }

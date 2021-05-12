@@ -18,6 +18,7 @@ public class ErrorMessages {
     public static final String INVALID_DISCOUNT= "Discount must be between 0 and 100 %";
     public static final String INVALID_BOOK_PROMOTION = "Promotion price can not be higher than actual price";
     public static final String INVALID_PHONE_NUMBER = "Your phone number is incorrect (must have 10 digits)";
+    public static final String INVALID_REGISTER_EMAIL = "An account with this email already exists!";
     public static final String INVALID_LOGIN_ADMIN = "Administrator username or password was incorrect, please try again";
     public static final String INVALID_LOGIN_USER= "Your email or password was incorrect, please try again";
     public static final String INVALID_FIND = "No data was found, please try again! Id may be incorrect";

@@ -49,4 +49,11 @@ public class UserValidators {
             throw new InvalidParameterException(ErrorMessages.INVALID_PASSWORD);
         }
     }
+
+    public static void validateFindUserByEmail(String email){
+        if(StringUtils.isEmpty(email) || (!email.contains("@yahoo") && !email.contains("@gmail"))){
+            throw new InvalidParameterException(ErrorMessages.INVALID_EMAIL);
+        }
+
+    }
 }

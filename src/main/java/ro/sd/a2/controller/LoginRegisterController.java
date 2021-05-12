@@ -5,10 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import ro.sd.a2.config.RabbitSender;
 import ro.sd.a2.dto.LoginDto;
+import ro.sd.a2.dto.MessageDto;
 import ro.sd.a2.dto.UserDto;
 import ro.sd.a2.entity.Book;
 import ro.sd.a2.exceptions.InvalidParameterException;
@@ -17,6 +21,7 @@ import ro.sd.a2.service.UserService;
 import ro.sd.a2.validators.UserValidators;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,6 +30,10 @@ import java.util.List;
 @Data
 @SessionAttributes({"currUser", "cart"})
 public class LoginRegisterController {
+    private final String authorizationToken = "1bf38fac-897e-40bd-8f3c-38bf247544f93196e235-ec58-43b1-b5b3-e9637822a1b5";
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private static final Logger log = LoggerFactory.getLogger(LoginRegisterController.class);
 
@@ -66,6 +75,15 @@ public class LoginRegisterController {
         return mav;
     }
 
+    @GetMapping("/successRegister")
+    public ModelAndView successRegister(String message){
+        log.info("Called /successRegister page");
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("message", message);
+        mav.setViewName("successRegister");
+        return mav;
+    }
+
     @GetMapping("/errorRegister")
     public ModelAndView errorRegister(String error){
         log.info("Called /errorRegister page");
@@ -74,6 +92,18 @@ public class LoginRegisterController {
         mav.setViewName("errorRegister");
         return mav;
     }
+
+    @GetMapping("/logout")
+    public ModelAndView logoutUser(){
+        log.info("Called /logout page");
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("currUser", null);
+        List<Book> books = new ArrayList<Book>();
+        mav.addObject("cart", books);
+        mav.setViewName("index");
+        return mav;
+    }
+
 
     /**
      * Metoda responsabila cu inregistrarea unui nou utilizator
@@ -85,15 +115,33 @@ public class LoginRegisterController {
         ModelAndView mav = new ModelAndView();
 
         try{
+            UserDto user = userService.findByEmail(userDto.getEmail());
+            if(user != null){
+                throw new InvalidParameterException(ErrorMessages.INVALID_REGISTER_EMAIL);
+            }
+
             userService.saveUser(userDto);
 
-            mav.setViewName("index");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            headers.add("token", authorizationToken);
+            // build the request
+            HttpEntity<UserDto> request = new HttpEntity<>(userDto, headers);
+            // send POST request
+            ResponseEntity<MessageDto> res = restTemplate.exchange("http://localhost:7700/create",
+                    HttpMethod.POST, request, MessageDto.class);
+
+            mav.addObject("message",  res.getBody().getMessage());
+            mav.setViewName("successRegister");
+
+            log.info("Registration Email: "+ res.toString());
 
             log.info("New registration "+ userDto.toString());
         }
         catch (Exception e){
             mav.addObject("error", e.getMessage());
             mav.setViewName("errorRegister");
+            System.out.println(e.getMessage());
             log.warn("Error occured during  register "+ userDto.toString());
         }
 
