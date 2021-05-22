@@ -19,7 +19,7 @@
     <h>
         <nav>
             <ul>
-                <div th:if="${session.currUser}">
+                <div th:if="${session.currUser != 'guest'}">
                     <li><a href="/app/indexUser">Home</a></li>
                     <li><a href="/app/showBooks"> Check out all of our books!</a></li>
                     <li><a href="/app/addAddress"> Add address </a></li>
@@ -29,7 +29,7 @@
                     <li><a href="/app/shoppingCart"> Shopping cart </a></li>
                     <li><a href="/app/logout"> Logout</a></li>
                 </div>
-                <div th:unless="${session.currUser}">
+                <div th:unless="${session.currUser != 'guest'}">
                     <li><a href="/app/indexView">Home</a></li>
                     <li><a href="/app/showBooks"> Check out all of our books!   </a></li>
                     <li><a href="/app/login"> Want to buy something? Login!</a></li>

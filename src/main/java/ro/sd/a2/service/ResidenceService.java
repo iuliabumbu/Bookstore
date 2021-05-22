@@ -18,6 +18,7 @@ import ro.sd.a2.mappers.Mapper;
 import ro.sd.a2.service.repository.AddressRepository;
 import ro.sd.a2.service.repository.BookRepository;
 import ro.sd.a2.service.repository.ResidenceRepository;
+import ro.sd.a2.service.repository.UserRepository;
 import ro.sd.a2.validators.BookValidators;
 import ro.sd.a2.validators.ResidenceValidators;
 import ro.sd.a2.validators.UserValidators;
@@ -58,7 +59,6 @@ public class ResidenceService {
         if(res == null){
             addressList = Arrays.asList(address);
 
-            System.out.println("Aici");
             System.out.println(addressList);
 
             residence = Residence.builder()
@@ -76,7 +76,6 @@ public class ResidenceService {
             addressList = res.getAddresses();
             addressList.add(address);
 
-            System.out.println("Aici2");
             System.out.println(addressList);
 
             res.setAddresses(addressList);
@@ -84,8 +83,9 @@ public class ResidenceService {
             residenceRepository.save(res);
 
             log.info("Successfully added address " + res.toString());
-
         }
+
+
 
     }
 

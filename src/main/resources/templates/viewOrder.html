@@ -37,7 +37,52 @@
     </h>
 </header>
 
-<h3> View orders to be done</h3>
+
+<div class="container">
+    <h2>View Orders:</h2>
+    <table style="table-layout: fixed;width: 100%;">
+        <thead>
+        <tr>
+            <th> Id </th>
+            <th> Address </th>
+            <th> Shipper </th>
+            <th> Cost </th>
+            <th> Status </th>
+            <th> Date </th>
+            <th> Items </th>
+            <th> Operation </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${orders.empty}">
+            <td colspan="2"> No Genres Available </td>
+        </tr>
+        <tr th:each="order : ${orders}">
+            <td><span th:text="${order.id}"> Id </span></td>
+            <td><span th:text="${'St. ' + order.address.street + ', Ap. ' + order.address.apartment + ', Nb. '
+            + order.address.number + ', City ' + order.address.city}"> Address </span></td>
+            <td><span th:text="${order.shipper.getName()}"> Shipper </span></td>
+            <td><span th:text="${order.totalCost}"> Cost </span></td>
+            <td><span th:text="${order.status}"> Status </span></td>
+            <td><span th:text="${order.data}"> Date </span></td>
+            <td>
+                <form th:action="@{/viewOrderItems}" th:object="${order.id}" method="get">
+                    <input type="hidden" name="id" th:value="${order.id}">
+                    <button type="submit">View Items</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/changeStatus}" th:object="${order}" method="get">
+                    <input type="hidden" name="id" th:value="${order.id}">
+                    <input type="hidden" name="status" th:value="${order.status}">
+                    <button type="submit">Change status</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
 <footer>
     <div class="footer"> Bookstore

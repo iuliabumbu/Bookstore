@@ -94,13 +94,16 @@ public class LoginRegisterController {
     }
 
     @GetMapping("/logout")
-    public ModelAndView logoutUser(){
+    public ModelAndView logoutUser(@ModelAttribute("currUser") String currentUser, @ModelAttribute("cart") List<Book> cart){
         log.info("Called /logout page");
+        System.out.println("Am ajuns in logout");
         ModelAndView mav = new ModelAndView();
-        mav.addObject("currUser", null);
-        List<Book> books = new ArrayList<Book>();
-        mav.addObject("cart", books);
+        currentUser = "guest";
+        mav.addObject("currUser", currentUser);
+        cart.clear();
+        mav.addObject("cart", cart);
         mav.setViewName("index");
+
         return mav;
     }
 

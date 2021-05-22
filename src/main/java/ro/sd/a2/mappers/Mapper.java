@@ -143,7 +143,6 @@ public class Mapper {
         newOrder.setOwner(order.getOwner());
         newOrder.setAddress(order.getAddress());
         newOrder.setShipper(order.getShipper());
-        newOrder.setStatus(order.getStatus());
         newOrder.setTotalCost(order.getTotalCost());
         OrderValidators.validateOrder(newOrder);
 

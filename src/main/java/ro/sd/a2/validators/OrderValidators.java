@@ -9,6 +9,8 @@ import ro.sd.a2.messages.ErrorMessages;
 public class OrderValidators {
 
     public static void validateOrder(Order order){
+        System.out.println("Order Valid " + order.toString());
+
         if(StringUtils.isEmpty(order.getId())){
             throw new InvalidParameterException(ErrorMessages.INVALID_ID);
         }
@@ -21,5 +23,11 @@ public class OrderValidators {
         }
 
 
+    }
+
+    public static void validateOrderId(String id){
+        if(StringUtils.isEmpty(id)){
+            throw new InvalidParameterException(ErrorMessages.INVALID_ID);
+        }
     }
 }

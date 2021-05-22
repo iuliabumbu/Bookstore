@@ -1,0 +1,71 @@
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrator main menu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+<header>
+
+    <h1>
+        <i class='fas fa-user-cog' style='font-size:48px;color:black'></i>
+        Administrator's Menu
+    </h1>
+    <h>
+        <nav>
+            <ul>
+                <li><a href="/app/indexAdmin">Home</a></li>
+                <li><a href="/app/addUser">Add User</a></li>
+                <li><a href="/app/addBook">Add Book</a></li>
+                <li><a href="/app/addGenre">Add Genre</a></li>
+                <li><a href="/app/addShipper">Add Shipper</a></li>
+                <li><a href="/app/addPromotions">Add Promotions</a></li>
+                <li><a href="/app/viewUser">Users</a></li>
+                <li><a href="/app/viewBook">Books</a></li>
+                <li><a href="/app/viewGenre">Genres</a></li>
+                <li><a href="/app/viewShipper">Shippers</a></li>
+                <li><a href="/app/viewOrder">Orders</a></li>
+                <li><a href="/app/index">Logout</a></li>
+
+            </ul>
+        </nav>
+    </h>
+</header>
+
+
+<div class="signup-header">
+    <h2>Change Order Status</h2>
+</div>
+<form method="post" th:action="@{/changeStatus}" th:object="${order}" >
+
+    <div class="signup-group">
+        <label>Id</label>
+        <input type="text" name = "id" th:value="*{id}" readonly="">
+    </div>
+
+    <label>Select new order status</label>
+    <div th:object="${statuses}" >
+        <div class="signup-group">
+            <select  id="status" name="status" >
+                <option th:each="status : ${statuses}" th:value="${status}" th:utext="${status}"/>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="signup-group">
+        <input type="submit" value="Change Status">
+    </div>
+</form>
+
+<footer>
+    <div class="footer"> Bookstore
+    </div>
+</footer>
+</body>
+</html>

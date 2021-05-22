@@ -25,4 +25,5 @@ public class ErrorMessages {
     public static final String INVALID_OWNER= "Residence owner must be provided";
     public static final String INVALID_ADDRESS = "All address fields must be provided";
     public static final String INVALID_ORDER = "All order fields must be completed correctly";
+    public static final String INVALID_DELETE_ORDER = "You can not delete an order that has already been confirmed/shipped/delivered!";
 }

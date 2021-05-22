@@ -13,18 +13,14 @@ import ro.sd.a2.config.RabbitSender;
 import ro.sd.a2.dto.*;
 import ro.sd.a2.entity.Address;
 import ro.sd.a2.entity.Book;
+import ro.sd.a2.entity.Order;
 import ro.sd.a2.entity.User;
 import ro.sd.a2.exceptions.InvalidParameterException;
 import ro.sd.a2.mappers.Mapper;
 import ro.sd.a2.messages.ErrorMessages;
-import ro.sd.a2.service.BookService;
-import ro.sd.a2.service.ResidenceService;
-import ro.sd.a2.service.ShipperService;
-import ro.sd.a2.service.UserService;
+import ro.sd.a2.service.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,7 +38,7 @@ public class UserController {
     private ResidenceService residenceService;
 
     @Autowired
-    private BookService bookService;
+    private OrderService orderService;
 
     @Autowired
     private ShipperService shipperService;
@@ -121,10 +117,29 @@ public class UserController {
     }
 
     @GetMapping("/viewUserOrder")
-    public ModelAndView viewUserOrder(){
+    public ModelAndView viewUserOrder(@ModelAttribute("currUser") String currentUser){
         log.info("Called /viewUserOrder page");
         ModelAndView mav = new ModelAndView();
+
+        Optional<User> user = userService.findUserById(currentUser);
+        List<Order> orders = orderService.findAllByUser(user.get());
+        orders.removeIf(p -> p.getDeleted().equals("yes"));
+        mav.addObject("orders", orders);
         mav.setViewName("viewUserOrder");
+        return mav;
+    }
+
+    @GetMapping("/viewOrderItems")
+    public ModelAndView viewOrderItems(String id){
+        log.info("Called /viewOrderItems page");
+        ModelAndView mav = new ModelAndView();
+
+        System.out.println("Am primit id "+ id);
+
+        Optional<Order> order = orderService.findOrderById(id);
+
+        mav.addObject("books", order.get().getItems());
+        mav.setViewName("viewOrderItems");
         return mav;
     }
 
@@ -154,15 +169,40 @@ public class UserController {
         return mav;
     }
 
+    @GetMapping("/deleteOrder")
+    public ModelAndView deleteOrder(OrderDto orderDto){
+        log.info("Called /deleteOrder page");
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("order", orderDto);
+        mav.setViewName("deleteOrder");
+        return mav;
+    }
+
     @GetMapping("/processOrder")
     public ModelAndView processOrder(OrderDto orderDto, @ModelAttribute("currUser") String currentUser, @ModelAttribute("cart") List<Book> cart){
         log.info("Called /processOrder page");
         ModelAndView mav = new ModelAndView();
         Optional<User> user = userService.findUserById(currentUser);
+        float total = 0;
+
+        for(Book book : cart){
+            if(book.getPromotionPrice() > 0){
+                total += book.getPromotionPrice();
+            }
+            else{
+                total += book.getPrice();
+            }
+        }
+        if(residenceService.findAllByOwner(user.get()) == null){
+            mav.addObject("error", "No adresses found, can not process the order!");
+            mav.setViewName("errorUser");
+            return mav;
+        }
+
         mav.addObject("orderDto", orderDto);
         mav.addObject("shippers", shipperService.findAllShippers());
         mav.addObject("addresses", residenceService.findAllByOwner(user.get()).getAddresses());
-        mav.addObject("total", 999);
+        mav.addObject("total", total);
         mav.setViewName("processOrder");
         return mav;
     }
@@ -177,6 +217,7 @@ public class UserController {
         orderDto.setOwner(user.get());
         orderDto.setItems(cart);
 
+
         float total = 0;
 
         for(Book book : cart){
@@ -188,12 +229,30 @@ public class UserController {
             }
         }
 
+        total += orderDto.getShipper().getCost();
+
         orderDto.setTotalCost(total);
 
-        ///......
+        try{
 
+            orderService.saveOrder(orderDto, user.get());
 
-        mav.setViewName("processOrder");
+            mav.addObject("message", "New order was added successfully!");
+            mav.setViewName("successUser");
+
+            cart.clear();
+
+            mav.addObject("cart", cart);
+
+            log.info("New add order "+orderDto.toString());
+        }
+        catch (Exception e){
+            mav.addObject("error", e.getMessage());
+            mav.setViewName("errorUser");
+
+            log.warn("Error occured during add order "+ orderDto.toString());
+        }
+
         return mav;
     }
 
@@ -287,6 +346,12 @@ public class UserController {
             throw new InvalidParameterException(ErrorMessages.INVALID_FIND);
         }
 
+        if(residenceService.findAllByOwner(user.get()) == null){
+            mav.addObject("error", "No residence found, first add an address!");
+            mav.setViewName("errorUser");
+            return mav;
+        }
+
         List<Address> addresses = residenceService.findAllByOwner(user.get()).getAddresses();
         if (CollectionUtils.isEmpty(addresses)) {
             log.warn("No addresses were found!");
@@ -325,6 +390,30 @@ public class UserController {
             mav.setViewName("errorUser");
 
             log.warn("Error occured during delete address "+ addressDto.toString());
+        }
+
+        return mav;
+    }
+
+    @PostMapping("/deleteOrder")
+    public ModelAndView processDeleteOrder(OrderDto orderDto){
+        ModelAndView mav = new ModelAndView();
+        try{
+            if(!orderDto.getStatus().equals("In progress")){
+                throw new InvalidParameterException(ErrorMessages.INVALID_DELETE_ORDER);
+            }
+
+            orderService.deleteOrder(orderDto);
+            mav.addObject("message", "Order deleted successfully!");
+            mav.setViewName("successUser");
+
+            log.info("New delete order "+ orderDto.toString());
+        }
+        catch (Exception e){
+            mav.addObject("error", e.getMessage());
+            mav.setViewName("errorUser");
+
+            log.warn("Error occured during delete order "+ orderDto.toString());
         }
 
         return mav;

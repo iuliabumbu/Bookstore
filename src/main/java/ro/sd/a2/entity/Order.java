@@ -36,7 +36,7 @@ public class Order {
     @Column
     private float totalCost;
 
-    @OneToMany
+    @ManyToMany
     private List<Book> items = new ArrayList<Book>();
 
     @ManyToOne

@@ -37,12 +37,11 @@
 </div>
 <form method="post" th:action="@{/processOrder}" th:object="${orderDto}" >
 
-
     <label>Select your delivery address</label>
     <div th:object="${addresses}" >
         <div class="signup-group">
             <select  id="address" name="address" >
-                <option th:each="address : ${addresses}" th:value="${address.id}" th:utext="${address.street}"/>
+                <option th:each="address : ${addresses}" th:value="${address.id}" th:utext="${'St. ' + address.street + ', Ap. ' + address.apartment + ', Nb. ' + address.number + ', City ' + address.city}"/>
             </select>
         </div>
     </div>
@@ -51,7 +50,7 @@
     <div th:object="${shippers}" >
         <div class="signup-group">
             <select  id="shipper" name="shipper" >
-                <option th:each="shipper : ${shippers}" th:value="${shipper.id}" th:utext="${shipper.name}(${shipper.cost})"/>
+                <option th:each="shipper : ${shippers}" th:value="${shipper.id}" th:utext="${shipper.name + '(' + shipper.cost + ')'}"/>
             </select>
         </div>
     </div>

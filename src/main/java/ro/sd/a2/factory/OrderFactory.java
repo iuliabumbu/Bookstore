@@ -13,7 +13,7 @@ public class OrderFactory {
         order.setDeleted("no");
         order.setId(UUID.randomUUID().toString());
         order.setData(new Date());
-        order.setStatus("Confirmed");
+        order.setStatus("In progress");
         return order;
     }
 }

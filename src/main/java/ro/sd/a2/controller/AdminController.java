@@ -40,6 +40,8 @@ public class AdminController {
     private BookService bookService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
 
     @GetMapping("/adminLogin")
@@ -201,7 +203,9 @@ public class AdminController {
     public ModelAndView viewOrder(){
         log.info("Called /viewOrder page");
         ModelAndView mav = new ModelAndView();
-       // mav.addObject("orders", userService.findAllUsers());
+        List<Order> orders = orderService.findAllOrders();
+        orders.removeIf(p -> p.getDeleted().equals("yes"));
+        mav.addObject("orders", orders);
         mav.setViewName("viewOrder");
         return mav;
     }
@@ -320,6 +324,17 @@ public class AdminController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("document", document);
         mav.setViewName("generateInventory");
+        return mav;
+    }
+
+    @GetMapping("/changeStatus")
+    public ModelAndView changeOrderStatus(Order order){
+        log.info("Called /changeStatus page");
+        ModelAndView mav = new ModelAndView();
+        List<String> statuses =  Arrays.asList("In progress", "Confirmed", "Shipped", "Delivered");
+        mav.addObject("order", order);
+        mav.addObject("statuses", statuses);
+        mav.setViewName("changeStatus");
         return mav;
     }
 
@@ -789,8 +804,6 @@ public class AdminController {
     public ModelAndView processGenerateInventory(Document document){
         ModelAndView mav = new ModelAndView();
         try{
-
-            System.out.println("Am gasit "+ document.getType());
             List<Book> books = bookService.findAllBooks();
 
             books.removeIf( p -> p.getDeleted().equals("yes"));
@@ -819,6 +832,29 @@ public class AdminController {
             log.warn("Error occured during generate inventory ");
         }
 
+        return mav;
+    }
+
+    @PostMapping("/changeStatus")
+    public ModelAndView changeTheOrderStatus(Order order){
+        log.info("Called /changeStatus page");
+        ModelAndView mav = new ModelAndView();
+        try{
+
+            System.out.println("Am gasit "+ order.getId() + " status "+order.getStatus());
+            orderService.changeStatus(order.getId(), order.getStatus());
+
+            mav.addObject("message", "Status changed successfully!");
+            mav.setViewName("successAdmin");
+
+            log.info("Inventory generated ");
+        }
+        catch (Exception e){
+            mav.addObject("error", e.getMessage());
+            mav.setViewName("errorAdmin");
+
+            log.warn("Error occured during change status of order " + order.getId());
+        }
         return mav;
     }
 

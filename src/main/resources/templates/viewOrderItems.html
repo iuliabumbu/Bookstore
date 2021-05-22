@@ -1,0 +1,99 @@
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrator main menu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+<header>
+    <h1>
+        <div th:if="${session.currUser != 'guest'}">
+        <i class='fas fa-book' style='font-size:48px;color:black'></i>
+        Bookstore
+        </div>
+        <div th:unless="${session.currUser != 'guest'}">
+            <i class='fas fa-user-cog' style='font-size:48px;color:black'></i>
+            Administrator's Menu
+        </div>
+    </h1>
+    <h>
+        <nav>
+
+            <ul>
+                <div th:if="${session.currUser != 'guest'}">
+                    <li><a href="/app/indexUser">Home</a></li>
+                    <li><a href="/app/showBooks"> Check out all of our books!</a></li>
+                    <li><a href="/app/addAddress"> Add address </a></li>
+                    <li><a href="/app/viewAddress"> View Addresses</a></li>
+                    <li><a href="/app/viewAccount"> View Account </a></li>
+                    <li><a href="/app/viewUserOrder"> View Orders </a></li>
+                    <li><a href="/app/shoppingCart"> Shopping cart </a></li>
+                    <li><a href="/app/logout"> Logout</a></li>
+                </div>
+                <div th:unless="${session.currUser != 'guest'}">
+                    <li><a href="/app/indexAdmin">Home</a></li>
+                    <li><a href="/app/addUser">Add User</a></li>
+                    <li><a href="/app/addBook">Add Book</a></li>
+                    <li><a href="/app/addGenre">Add Genre</a></li>
+                    <li><a href="/app/addShipper">Add Shipper</a></li>
+                    <li><a href="/app/addPromotions">Add Promotions</a></li>
+                    <li><a href="/app/viewUser">Users</a></li>
+                    <li><a href="/app/viewBook">Books</a></li>
+                    <li><a href="/app/viewGenre">Genres</a></li>
+                    <li><a href="/app/viewShipper">Shippers</a></li>
+                    <li><a href="/app/viewOrder">Orders</a></li>
+                    <li><a href="/app/index">Logout</a></li>
+                </div>
+            </ul>
+        </nav>
+    </h>
+
+</header>
+
+
+<div class="container">
+    <h2>View Order Items:</h2>
+    <table style="table-layout: fixed;width: 100%;">
+        <thead>
+        <tr>
+            <th> Id </th>
+            <th> Title </th>
+            <th> Author </th>
+            <th> Description </th>
+            <th> Genre </th>
+            <th> Price </th>
+            <th> Promotion price </th>
+            <th> Image </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${books.empty}">
+            <td colspan="2"> No Books Available </td>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td><span th:text="${book.id}"> Id </span></td>
+            <td><span th:text="${book.title}"> Title </span></td>
+            <td><span th:text="${book.author}"> Author </span></td>
+            <td><span th:text="${book.description}"> Description </span></td>
+            <td><span th:text="${book.genre.type}"> Genre </span></td>
+            <td><span th:text="${book.price}"> Price </span></td>
+            <td><span th:text="${book.promotionPrice}"> Promotion price </span></td>
+
+            <td><img th:src= "*{book.image}" height="100" width="70" > </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<footer>
+    <div class="footer"> Bookstore
+    </div>
+</footer>
+</body>
+</html>
