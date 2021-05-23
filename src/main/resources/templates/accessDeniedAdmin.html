@@ -4,17 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>First web app</title>
+    <title>Access denied</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Hello World for 30433</h1>
-<h2><i>YO YO</i></h2>
+<div class="login-box">
+    <h2>Bookstore</h2>
 
-<h1>Varianta1</h1>
-<h1 th:text="${userObj.name}"> este numele acelui user</h1>
+    <p class="textbox"> Access denied, please
+        <a href="/app/adminLogin" >login as admin</a>
+    </p>
 
-<h1>Varianta2</h1>
-<h1 th:text="${numeStudent}"> este numele acelui user</h1>
+</div>
+
 
 </body>
 </html>

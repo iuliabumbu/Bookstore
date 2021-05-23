@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrator main menu</title>
+    <title>View user</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style2.css">
 </head>
@@ -46,6 +46,7 @@
             <th> Name </th>
             <th> Surname </th>
             <th> Email </th>
+            <th> Username </th>
             <th> Password </th>
             <th> Phone Number </th>
             <th> Operation </th>
@@ -60,6 +61,7 @@
             <td><span th:text="${user.name}"> Name </span></td>
             <td><span th:text="${user.surname}"> Surname </span></td>
             <td><span th:text="${user.email}"> Email </span></td>
+            <td><span th:text="${user.username}"> Username </span></td>
             <td><span th:text="${user.password}"> Password </span></td>
             <td><span th:text="${user.phoneNumber}"> Phone Number </span></td>
             <td>
@@ -68,6 +70,7 @@
                     <input type="hidden" name="name" th:value="${user.name}">
                     <input type="hidden" name="surname" th:value="${user.surname}">
                     <input type="hidden" name="email" th:value="${user.email}">
+                    <input type="hidden" name="username" th:value="${user.username}">
                     <input type="hidden" name="password" th:value="${user.password}">
                     <input type="hidden" name="phoneNumber" th:value="${user.phoneNumber}">
                     <button type="submit">Update</button>
@@ -77,6 +80,7 @@
                     <input type="hidden" name="name" th:value="${user.name}">
                     <input type="hidden" name="surname" th:value="${user.surname}">
                     <input type="hidden" name="email" th:value="${user.email}">
+                    <input type="hidden" name="username" th:value="${user.username}">
                     <input type="hidden" name="password" th:value="${user.password}">
                     <input type="hidden" name="phoneNumber" th:value="${user.phoneNumber}">
                     <button type="submit">Delete</button>

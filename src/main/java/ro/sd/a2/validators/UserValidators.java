@@ -20,6 +20,10 @@ public class UserValidators {
             throw new InvalidParameterException(ErrorMessages.INVALID_NAME);
         }
 
+        if(StringUtils.isEmpty(user.getUsername())){
+            throw new InvalidParameterException(ErrorMessages.INVALID_USERNAME);
+        }
+
         if(StringUtils.isEmpty(user.getSurname())){
             throw new InvalidParameterException(ErrorMessages.INVALID_SURNAME);
         }
@@ -54,6 +58,11 @@ public class UserValidators {
         if(StringUtils.isEmpty(email) || (!email.contains("@yahoo") && !email.contains("@gmail"))){
             throw new InvalidParameterException(ErrorMessages.INVALID_EMAIL);
         }
+    }
 
+    public static void validateFindUserByUsername(String username){
+        if(StringUtils.isEmpty(username)){
+            throw new InvalidParameterException(ErrorMessages.INVALID_USERNAME);
+        }
     }
 }

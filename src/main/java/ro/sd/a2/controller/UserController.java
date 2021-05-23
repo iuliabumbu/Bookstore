@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -43,12 +44,36 @@ public class UserController {
     @Autowired
     private ShipperService shipperService;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @GetMapping("/indexUser")
     public ModelAndView mainMenuUser(){
         log.info("Called /indexUser page");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("indexUser");
+        return mav;
+    }
+
+    @GetMapping("/toIndexUser")
+    public ModelAndView toMainMenuUser(){
+        log.info("Called /indexUser page");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("indexUser");
+
+        UserDto userDto = userService.findByUsername(userService.getSessionUserUsername());
+        mav.addObject("currUser", userDto.getId());
+        List<Book> books = new ArrayList<Book>();
+        mav.addObject("cart", books);
+        return mav;
+    }
+
+    @GetMapping("/accessDenied")
+    public ModelAndView accessDeniedUser(){
+        log.info("Called /accessDenied page");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("accessDenied");
         return mav;
     }
 

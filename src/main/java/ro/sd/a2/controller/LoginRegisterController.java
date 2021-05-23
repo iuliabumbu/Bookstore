@@ -58,10 +58,9 @@ public class LoginRegisterController {
     }
 
     @GetMapping("/login")
-    public ModelAndView login(LoginDto loginDto){
+    public ModelAndView login(){
         log.info("Called /login page");
         ModelAndView mav = new ModelAndView();
-        mav.addObject("loginDto", loginDto);
         mav.setViewName("login");
         return mav;
     }
@@ -92,7 +91,7 @@ public class LoginRegisterController {
         mav.setViewName("errorRegister");
         return mav;
     }
-
+/*
     @GetMapping("/logout")
     public ModelAndView logoutUser(@ModelAttribute("currUser") String currentUser, @ModelAttribute("cart") List<Book> cart){
         log.info("Called /logout page");
@@ -105,7 +104,7 @@ public class LoginRegisterController {
         mav.setViewName("index");
 
         return mav;
-    }
+    }*/
 
 
     /**
@@ -121,6 +120,11 @@ public class LoginRegisterController {
             UserDto user = userService.findByEmail(userDto.getEmail());
             if(user != null){
                 throw new InvalidParameterException(ErrorMessages.INVALID_REGISTER_EMAIL);
+            }
+
+            UserDto user2 = userService.findByUsername(userDto.getUsername());
+            if(user2 != null){
+                throw new InvalidParameterException(ErrorMessages.INVALID_REGISTER_USERNAME);
             }
 
             userService.saveUser(userDto);
@@ -157,6 +161,7 @@ public class LoginRegisterController {
      * @throws InvalidParameterException - daca credentialele nu sunt corecte
      * @return - obiectul ModelAndView care ne permite sa trimitem informatiile solicitate de Spring MVC
      */
+/*
     @PostMapping("/login")
     public ModelAndView processLogin(LoginDto loginDto){
         ModelAndView mav = new ModelAndView();
@@ -184,7 +189,7 @@ public class LoginRegisterController {
         }
 
         return mav;
-    }
+    }*/
 
 
 }

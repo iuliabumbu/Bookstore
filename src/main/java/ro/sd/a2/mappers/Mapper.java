@@ -25,6 +25,7 @@ public class Mapper {
                 .surname(user.getSurname())
                 .email(user.getEmail())
                 .password((user.getPassword()))
+                .username(user.getUsername())
                 .phoneNumber(user.getPhoneNumber())
                 .build();
     }
@@ -87,6 +88,7 @@ public class Mapper {
         User newUser = UserFactory.generateUser();
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
+        newUser.setUsername(user.getUsername());
         newUser.setName(user.getName());
         newUser.setSurname(user.getSurname());
         newUser.setPhoneNumber(user.getPhoneNumber());

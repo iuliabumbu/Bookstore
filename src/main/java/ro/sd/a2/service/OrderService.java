@@ -18,6 +18,7 @@ import ro.sd.a2.validators.OrderValidators;
 import ro.sd.a2.validators.ShipperValidators;
 import ro.sd.a2.validators.UserValidators;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -90,6 +91,21 @@ public class OrderService {
         else{
             throw new InvalidParameterException(ErrorMessages.INVALID_FIND);
         }
+    }
 
+    public List<Book> findAllBoughtBooks(){
+        List<Order> orders = findAllOrders();
+        List<Book> books = new ArrayList<Book>();
+        for(Order o : orders){
+            List<Book> orderBooks = o.getItems();
+
+            for(Book b : orderBooks){
+                if(!books.contains(b)){
+                    books.add(b);
+                }
+            }
+        }
+
+        return books;
     }
 }

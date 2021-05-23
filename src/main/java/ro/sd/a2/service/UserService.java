@@ -2,6 +2,11 @@ package ro.sd.a2.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ro.sd.a2.dto.LoginDto;
 import ro.sd.a2.dto.UserDto;
@@ -16,9 +21,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private  UserRepository userRepository;
@@ -32,6 +40,8 @@ public class UserService {
 
         User user = Mapper.UserDtoMapping(userDto);
         UserValidators.validateInsertUser(user);
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+
         userRepository.save(user);
 
         log.info("Successfully created user " + user.toString());
@@ -80,8 +90,15 @@ public class UserService {
             user.get().setName(userDto.getName());
             user.get().setSurname(userDto.getSurname());
             user.get().setEmail(userDto.getEmail());
-            user.get().setPassword(userDto.getPassword());
+            user.get().setUsername(userDto.getUsername());
             user.get().setPhoneNumber(userDto.getPhoneNumber());
+            if(!user.get().getPassword().equals(userDto.getPassword())){
+                user.get().setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+            }
+
+
+            System.out.println("books1996: ");
+            System.out.println(bCryptPasswordEncoder.encode("books1996"));
 
             UserValidators.validateInsertUser(user.get());
             userRepository.save(user.get());
@@ -140,6 +157,29 @@ public class UserService {
         UserDto userDto = Mapper.userMapping(user);
 
         return userDto;
+    }
+
+    public UserDto findByUsername(String username){
+        log.info("Find user by username attempt " + username);
+
+        UserValidators.validateFindUserByUsername(username);
+        User user = userRepository.findByUsername(username);
+
+        UserDto userDto = Mapper.userMapping(user);
+
+        return userDto;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
+    }
+
+    /**
+     * Please check the User entity @toString method
+     */
+    public String getSessionUserUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
     }
 
 }

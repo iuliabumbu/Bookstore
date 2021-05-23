@@ -36,7 +36,7 @@ public class Order {
     @Column
     private float totalCost;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> items = new ArrayList<Book>();
 
     @ManyToOne

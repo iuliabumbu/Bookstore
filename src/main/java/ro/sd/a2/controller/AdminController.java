@@ -61,6 +61,14 @@ public class AdminController {
         return mav;
     }
 
+    @GetMapping("/accessDeniedAdmin")
+    public ModelAndView accessDeniedAdmin(){
+        log.info("Called /accessDeniedAdmin page");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("accessDeniedAdmin");
+        return mav;
+    }
+
     @GetMapping("/errorAdminLogin")
     public ModelAndView errorAdminLogin(String error){
         log.info("Called /errorAdminLogin page");
@@ -344,7 +352,7 @@ public class AdminController {
      * @throws InvalidParameterException - daca credentialele nu sunt corecte
      * @return - obiectul ModelAndView care ne permite sa trimitem informatiile solicitate de Spring MVC
      */
-    @PostMapping("/adminLogin")
+  /*  @PostMapping("/adminLogin")
     public ModelAndView processAdminLogin(Administrator administrator){
         ModelAndView mav = new ModelAndView();
 
@@ -366,7 +374,7 @@ public class AdminController {
         }
 
         return mav;
-    }
+    }*/
 
     /**
      * Metoda responsabila cu adaugarea unei noi categorii

@@ -6,22 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Log in</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-<form method="post" th:action="@{/login}" th:object="${loginDto}">
+<form name="login" method="post" th:action="@{/login}" >
     <div class="login-box">
         <h1>Login</h1>
 
         <div class="textbox">
-            <label>Email</label>
+            <label>Username</label>
             <i class="fas fa-envelope"></i>
-            <input type="text" name = "email" th:value="*{email}">
+            <input type="text" name = "username">
         </div>
 
         <div class="textbox">
             <label>Password</label>
             <i class="fas fa-lock"></i>
-            <input type="password" name = "password" th:value="*{password}">
+            <input type="password" name = "password">
         </div>
 
         <button type="submit" class="btn" >Submit</button>
